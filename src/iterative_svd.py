@@ -29,10 +29,6 @@ class IterativeSVD:
 
         for singular_values in self.singular_values_to_keep:
 
-            # fill in true values
-            for (user, movie, rating) in zip(users_train, movies_train, ratings_train):
-                self.data_iterative_svd[user][movie] = rating
-
             U, s, Vt = np.linalg.svd(self.data_iterative_svd, full_matrices=True)
 
             S = np.zeros((self.number_of_users, self.number_of_movies))
@@ -44,7 +40,14 @@ class IterativeSVD:
 
             self.data_iterative_svd = U.dot(Sk).dot(Vt)
 
-    def predict(self, users_test, movies_test):
+            # fill in true values
+            for (user, movie, rating) in zip(users_train, movies_train, ratings_train):
+                self.data_iterative_svd[user][movie] = rating
+
+    def predict(self,
+                users_test,
+                movies_test):
+
         assert self.data_iterative_svd is not None, "You first have to fit the data"
 
         predictions = np.zeros(len(users_test))

@@ -7,14 +7,15 @@ from utils import root_mean_square_error
 
 DEFAULT_LOG_PATH = './autoencoder'
 
+
 class Autoencoder:
-    training=None
-    input_pos=None
-    input_=None
-    input_mask=None
-    intermediate_representation=None
-    input_reconstructed=None
-    loss=None
+    training = None
+    input_pos = None
+    input_ = None
+    input_mask = None
+    intermediate_representation = None
+    input_reconstructed = None
+    loss = None
 
     def __init__(self,
                  number_of_users,
@@ -173,9 +174,9 @@ class Autoencoder:
     def train(self,
               data,
               data_mask,
-              users_validation,
-              movies_validation,
-              ratings_validations,
+              users_validation=None,
+              movies_validation=None,
+              ratings_validations=None,
               n_epochs=350,
               decay_steps=None,
               learning_rate=None,

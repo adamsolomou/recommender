@@ -12,7 +12,8 @@ import numpy as np
 # unused
 weights = tf.constant([1, 1, 1, 1, 1.0])
 
-def customLoss(yTrue, yPred):
+
+def custom_loss(yTrue, yPred):
     # scale preds so that the class probas of each sample sum to 1
     output = yPred / tf.reduce_sum(yPred,
                                    reduction_indices=len(yPred.get_shape()) - 1,
@@ -40,61 +41,53 @@ def my_mse(y_true, y_pred):
 
 
 def create_model(number_of_users, number_of_movies):
-    inputMovies = Input(shape=(1,), name='input_movies')
-    inputUsers = Input(shape=(1,), name='input_users')
+    # define two sets of inputs
+    input_movies = Input(shape=(1,), name='input_movies')
+    input_users = Input(shape=(1,), name='input_users')
 
     # the first branch operates on the first input
-    embeddings_movies = Embedding(number_of_movies, 100, input_length=1, name='embedding_movies')(inputMovies)
+    embeddings_movies = Embedding(number_of_movies, 100, input_length=1, name='embedding_movies')(input_movies)
     embeddings_movies = Dropout(rate=0.25)(embeddings_movies)
-    model_movies = Model(inputs=inputMovies, outputs=embeddings_movies)
+
+    embeddings_movies = Dense(128, activation='relu', name='dense_251')(embeddings_movies)
+    embeddings_movies = Dropout(rate=0.1)(embeddings_movies)
+    embeddings_movies = Dense(96, activation='relu', name='dense_253')(embeddings_movies)
+    embeddings_movies = Dropout(rate=0.1)(embeddings_movies)
+
+    model_movies = Model(inputs=input_movies, outputs=embeddings_movies)
 
     # the second branch opreates on the second input
-    embeddings_users = Embedding(number_of_users, 150, input_length=1, name='embedding_users')(inputUsers)
+    embeddings_users = Embedding(number_of_users, 150, input_length=1, name='embedding_users')(input_users)
     embeddings_users = Dropout(rate=0.25)(embeddings_users)
-    model_users = Model(inputs=inputUsers, outputs=embeddings_users)
+
+    embeddings_users = Dense(256, activation='relu', name='dense_451')(embeddings_users)
+    embeddings_users = Dropout(rate=0.1)(embeddings_users)
+    embeddings_users = Dense(96, activation='relu', name='dense_452')(embeddings_users)
+    embeddings_users = Dropout(rate=0.1)(embeddings_users)
+
+    model_users = Model(inputs=input_users, outputs=embeddings_users)
 
     # combine the output of the two branches
     combined = concatenate([model_movies.output, model_users.output])
-    combined = Flatten()(combined)
 
-    choose_movies = Dense(512, activation='relu')(combined)
-    choose_movies = Dropout(rate=0.1)(choose_movies)
-    choose_movies = Dense(100, activation='sigmoid')(choose_movies)
-    choose_movies = Dropout(rate=0.1)(choose_movies)
+    combined1 = multiply([model_movies.output, model_users.output])
+    # combined1 = Activation('tanh')(combined1)
 
-    #     movies_embeddings = Activation('tanh')(model_movies.output)
-    movies_embeddings = model_movies.output
-    movies_embeddings = multiply([movies_embeddings, choose_movies])
-
-    choose_users = Dense(512, activation='relu')(combined)
-    choose_users = Dropout(rate=0.1)(choose_users)
-    choose_users = Dense(150, activation='sigmoid')(choose_users)
-    choose_users = Dropout(rate=0.1)(choose_users)
-
-    #     users_embeddings = Activation('tanh')(model_users.output)
-    users_embeddings = model_users.output
-    users_embeddings = multiply([users_embeddings, choose_users])
-
-    merged = concatenate([movies_embeddings, users_embeddings])
+    combined = concatenate([combined, combined1])
 
     # apply a FC layer and then a regression prediction on the
     # combined outputs
-    merged = Flatten()(merged)
+    merged = Flatten()(combined)
     merged = Dense(512, activation='relu', name='dense_511')(merged)
     merged = Dropout(rate=0.1)(merged)
-    merged = Dense(5, activation='relu')(merged)
+    merged = Dense(5, activation='relu', name='dense_3')(merged)
     merged = Activation('softmax')(merged)
 
-    # our model will accept the inputs of the two branches and
-    # then output a single value
     model = Model(inputs=[model_movies.input, model_users.input], outputs=merged)
 
     optimizer = optimizers.Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.00001)
-    # optimizer = optimizers.Adadelta(lr=10.0, rho=0.95, epsilon=None, decay=0.0)
 
-    model.compile(loss=customLoss, optimizer=optimizer, metrics=[my_mse])
-    #     model.compile(loss='mean_squared_error', optimizer=optimizer)
-
+    model.compile(loss=custom_loss, optimizer=optimizer, metrics=[my_mse])
     return model
 
 
@@ -109,10 +102,10 @@ class Embeddings:
                  users_train,
                  movies_train,
                  ratings_train,
-                 epochs=40,
                  users_validation=None,
                  movies_validation=None,
                  ratings_validation=None,
+                 epochs=40,
                  verbose=True):
 
         self.model = create_model(self.number_of_movies, self.number_of_movies)

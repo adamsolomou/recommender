@@ -1,7 +1,8 @@
 import numpy as np
 import math
 from random import randint
-from utils import root_mean_squared_error
+
+from utils import root_mean_square_error
 
 
 def update_learning_rate(learning_rate, current_step, update_every, decay):
@@ -94,7 +95,7 @@ class SVDplus:
             if iteration % 1000000 == 0 and validation and verbose:
                 predictions = self.predict(users_validation, movies_validation)
                 print('Validation error at iteration', iteration, 'is',
-                      root_mean_squared_error(ratings_validation, predictions))
+                      root_mean_square_error(ratings_validation, predictions))
 
     def predict(self, users_test, movies_test):
 
