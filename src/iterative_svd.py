@@ -1,5 +1,5 @@
 import numpy as np
-
+from utils import root_mean_square_error
 
 class IterativeSVD:
     data_iterative_svd = None
@@ -23,9 +23,16 @@ class IterativeSVD:
                  data,
                  users_train,
                  movies_train,
-                 ratings_train):
+                 ratings_train, 
+                 users_valid=None, 
+                 movies_valid=None, 
+                 ratings_valid=None):
 
         self.data_iterative_svd = data.copy()
+
+        # Validation mode
+        if users_valid is not None and movies_valid is not None: 
+            valid_error_per_iteration = list()
 
         for singular_values in self.singular_values_to_keep:
 
@@ -44,6 +51,14 @@ class IterativeSVD:
             for (user, movie, rating) in zip(users_train, movies_train, ratings_train):
                 self.data_iterative_svd[user][movie] = rating
 
+            if users_valid is not None and movies_valid is not None:
+                val_predictions = self.predict(users_valid, movies_valid)
+
+                valid_error_per_iteration.append(root_mean_square_error(ratings_valid, val_predictions))
+
+        if users_valid is not None and movies_valid is not None:
+            return valid_error_per_iteration
+            
     def predict(self,
                 users_test,
                 movies_test):
