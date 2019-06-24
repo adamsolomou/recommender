@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 import os
-import tensorflow as tf from utils import root_mean_square_error
+import tensorflow as tf 
+from utils import root_mean_square_error
 from iterative_svd import IterativeSVD
 from svdplus import SVDplus
 from autoencoder import Autoencoder
