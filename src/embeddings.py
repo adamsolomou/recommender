@@ -1,103 +1,101 @@
-# THIS SHOULD BE IN TENSORFLOW !!
-
-from keras.models import Model
-from keras.layers import Embedding, Dense, Flatten
-from keras.layers import Activation, Dropout, Input, concatenate
-from keras.layers import multiply
-from keras import optimizers
 import tensorflow as tf
-from keras.utils import np_utils
+# TODO change that before submit
+# from tqdm import tqdm
+from tqdm import tqdm_notebook as tqdm
 import numpy as np
+from sklearn.utils import shuffle
+import math
+import os
+import shutil
 
-# unused
-weights = tf.constant([1, 1, 1, 1, 1.0])
-
-
-def custom_loss(yTrue, yPred):
-    # scale preds so that the class probas of each sample sum to 1
-    output = yPred / tf.reduce_sum(yPred,
-                                   reduction_indices=len(yPred.get_shape()) - 1,
-                                   keep_dims=True)
-    # manual computation of crossentropy
-    epsilon = tf.constant(0.00001)
-    output = tf.clip_by_value(output, epsilon, 1. - epsilon)
-
-    return - tf.reduce_sum(yTrue * weights * tf.log(output),
-                           reduction_indices=len(output.get_shape()) - 1)
-
-
-values = tf.constant([1, 2, 3, 4, 5], tf.float32)
-
-
-def my_mse(y_true, y_pred):
-    y_true = tf.argmax(y_true, axis=1) + 1
-
-    pred = y_pred * values
-    pred = tf.reduce_sum(pred, axis=1)
-
-    y_true = tf.cast(y_true, tf.float32)
-
-    return tf.reduce_mean(tf.square(pred - y_true), axis=0)
-
-
-def create_model(number_of_users, number_of_movies):
-    # define two sets of inputs
-    input_movies = Input(shape=(1,), name='input_movies')
-    input_users = Input(shape=(1,), name='input_users')
-
-    # the first branch operates on the first input
-    embeddings_movies = Embedding(number_of_movies, 100, input_length=1, name='embedding_movies')(input_movies)
-    embeddings_movies = Dropout(rate=0.25)(embeddings_movies)
-
-    embeddings_movies = Dense(128, activation='relu', name='dense_251')(embeddings_movies)
-    embeddings_movies = Dropout(rate=0.1)(embeddings_movies)
-    embeddings_movies = Dense(96, activation='relu', name='dense_253')(embeddings_movies)
-    embeddings_movies = Dropout(rate=0.1)(embeddings_movies)
-
-    model_movies = Model(inputs=input_movies, outputs=embeddings_movies)
-
-    # the second branch opreates on the second input
-    embeddings_users = Embedding(number_of_users, 150, input_length=1, name='embedding_users')(input_users)
-    embeddings_users = Dropout(rate=0.25)(embeddings_users)
-
-    embeddings_users = Dense(256, activation='relu', name='dense_451')(embeddings_users)
-    embeddings_users = Dropout(rate=0.1)(embeddings_users)
-    embeddings_users = Dense(96, activation='relu', name='dense_452')(embeddings_users)
-    embeddings_users = Dropout(rate=0.1)(embeddings_users)
-
-    model_users = Model(inputs=input_users, outputs=embeddings_users)
-
-    # combine the output of the two branches
-    combined = concatenate([model_movies.output, model_users.output])
-
-    combined1 = multiply([model_movies.output, model_users.output])
-    # combined1 = Activation('tanh')(combined1)
-
-    combined = concatenate([combined, combined1])
-
-    # apply a FC layer and then a regression prediction on the
-    # combined outputs
-    merged = Flatten()(combined)
-    merged = Dense(512, activation='relu', name='dense_511')(merged)
-    merged = Dropout(rate=0.1)(merged)
-    merged = Dense(5, activation='relu', name='dense_3')(merged)
-    merged = Activation('softmax')(merged)
-
-    model = Model(inputs=[model_movies.input, model_users.input], outputs=merged)
-
-    optimizer = optimizers.Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.00001)
-
-    model.compile(loss=custom_loss, optimizer=optimizer, metrics=[my_mse])
-    return model
+DEFAULT_LOG_PATH = './embeddings_model'
 
 
 class Embeddings:
     def __init__(self,
                  number_of_users,
-                 number_of_movies):
+                 number_of_movies,
+                 embeddings_size):
+
         self.number_of_users = number_of_users
         self.number_of_movies = number_of_movies
+        self.embeddings_size = embeddings_size
 
+    def create_graph(self,
+                     users,
+                     movies,
+                     training,
+                     reuse=False):
+
+        with tf.variable_scope("embeddings_model", reuse=reuse):
+            with tf.name_scope("embeddings"):
+                user_embeddings_layers = tf.get_variable('user_embedding', [self.number_of_users, 150])
+
+                user_embeddings = tf.nn.embedding_lookup(user_embeddings_layers, users, name='users_lookup')
+                user_embeddings = tf.layers.dropout(user_embeddings, rate=0.25, training=training)
+
+                user_embeddings = tf.layers.dense(user_embeddings, 256, use_bias=True, name='dense_layers_users_1',
+                                                  activation=tf.nn.relu)
+                user_embeddings = tf.layers.dropout(user_embeddings, rate=0.1, training=training)
+                user_embeddings = tf.layers.dense(user_embeddings, self.embeddings_size, use_bias=True,
+                                                  name='dense_layers_users_2', activation=tf.nn.relu)
+                user_embeddings = tf.layers.dropout(user_embeddings, rate=0.1, training=training)
+
+                movie_embeddings_layers = tf.get_variable('movie_embedding', [self.number_of_movies, 100])
+
+                movie_embeddings = tf.nn.embedding_lookup(movie_embeddings_layers, movies, name='users_lookup')
+                movie_embeddings = tf.layers.dropout(movie_embeddings, rate=0.25, training=training)
+
+                movie_embeddings = tf.layers.dense(movie_embeddings, 128, use_bias=True, name='dense_layers_movies_1',
+                                                   activation=tf.nn.relu)
+                movie_embeddings = tf.layers.dropout(movie_embeddings, rate=0.1, training=training)
+                movie_embeddings = tf.layers.dense(movie_embeddings, self.embeddings_size, use_bias=True,
+                                                   name='dense_layers_movies_2', activation=tf.nn.relu)
+                movie_embeddings = tf.layers.dropout(movie_embeddings, rate=0.1, training=training)
+
+            with tf.name_scope("concatenate"):
+                concatenated = tf.concat([user_embeddings, movie_embeddings], axis=1)
+
+                multiplied = user_embeddings * movie_embeddings
+
+                merged = tf.concat([concatenated, multiplied], axis=1)
+
+            with tf.name_scope("feed_forward"):
+                merged = tf.layers.dense(merged, 512, use_bias=True, name='dense_layers_1', activation=tf.nn.relu)
+                merged = tf.layers.dropout(merged, rate=0.1, training=training)
+
+                rating_logits = tf.layers.dense(merged, 5, use_bias=True, name='dense_output')
+
+            return rating_logits
+
+    @staticmethod
+    def create_dataset(phase, batch_size=512):
+        users_placeholder = tf.placeholder(tf.int64, [None], name='users_placeholder_%s' % phase)
+        movies_placeholder = tf.placeholder(tf.int64, [None], name='movies_placeholder_%s' % phase)
+        ratings_placeholder = tf.placeholder(tf.int64, [None], name='ratings_placeholder_%s' % phase)
+
+        dataset = tf.data.Dataset.from_tensor_slices((users_placeholder, movies_placeholder, ratings_placeholder))
+
+        dataset = dataset.batch(batch_size=batch_size, drop_remainder=False)
+
+        iterator = dataset.make_initializable_iterator()
+
+        return users_placeholder, movies_placeholder, ratings_placeholder, iterator
+
+    @staticmethod
+    def logits_to_predictions(prediction_logits):
+        predictions_softmax = tf.nn.softmax(prediction_logits)
+        return tf.reduce_sum(predictions_softmax * tf.constant([1, 2, 3, 4, 5], dtype=tf.float32), axis=1)
+
+    def square_error(self, true, prediction_logits):
+
+        true = tf.cast(true, tf.float32)
+
+        predictions = self.logits_to_predictions(prediction_logits)
+
+        return tf.reduce_sum((true - predictions) ** 2, name='square_error')
+
+    # noinspection PyUnboundLocalVariable
     def fit_data(self,
                  users_train,
                  movies_train,
@@ -106,42 +104,182 @@ class Embeddings:
                  movies_validation=None,
                  ratings_validation=None,
                  epochs=40,
-                 verbose=True):
+                 verbose=True,
+                 learning_rate=1.0,
+                 log_path=None,
+                 batch_size=512):
 
-        self.model = create_model(self.number_of_movies, self.number_of_movies)
+        if log_path is None:
+            log_path = DEFAULT_LOG_PATH
 
-        if verbose:
-            self.model.summary()
+        if os.path.exists(log_path) and os.path.isdir(log_path):
+            shutil.rmtree(log_path)
 
         validation = False
         if users_validation is not None and movies_validation is not None and ratings_validation is not None:
+            assert len(users_validation) == len(movies_validation) == len(ratings_validation), \
+                "Invalid validation data provided"
+
             validation = True
 
-        users_train = np.array(users_train).reshape(-1, 1)
-        movies_train = np.array(movies_train).reshape(-1, 1)
+        with tf.Graph().as_default():
+            with tf.Session() as sess:
+                if verbose:
+                    print('Creating graph')
 
-        if validation:
-            users_validation = np.array(users_validation).reshape(-1, 1)
-            movies_validation = np.array(movies_validation).reshape(-1, 1)
+                users_train_placeholder, movies_train_placeholder, ratings_train_placeholder, \
+                    iterator_train = self.create_dataset(phase='train', batch_size=batch_size)
 
-        ratings_categorical_train = np_utils.to_categorical(ratings_train - 1)
+                users_train_tf, movies_train_tf, ratings_train_tf = iterator_train.get_next()
 
-        if validation:
-            ratings_categorical_validation = np_utils.to_categorical(ratings_validation - 1)
+                ratings_train_predictions = self.create_graph(users_train_tf,
+                                                              movies_train_tf, training=True, reuse=False)
 
-        if validation:
-            self.model.fit([movies_train, users_train], ratings_categorical_train, batch_size=512, epochs=epochs,
-                           validation_data=([movies_validation, users_validation], ratings_categorical_validation))
-        else:
-            self.model.fit([movies_train, users_train], ratings_categorical_train, batch_size=512, epochs=epochs)
+                square_error_train = self.square_error(ratings_train_tf, ratings_train_predictions)
+
+                if validation:
+                    users_validation_placeholder, movies_validation_placeholder, ratings_validation_placeholder, \
+                        iterator_validation = self.create_dataset(phase='validation', batch_size=batch_size)
+
+                    users_validation_tf, movies_validation_tf, ratings_validation_tf = iterator_validation.get_next()
+
+                    ratings_validation_predictions = self.create_graph(users_validation_tf,
+                                                                       movies_validation_tf, training=False, reuse=True)
+
+                    square_error_validation = self.square_error(ratings_validation_tf,
+                                                                ratings_validation_predictions)
+
+                total_training_loss = tf.nn. \
+                    sparse_softmax_cross_entropy_with_logits(logits=ratings_train_predictions,
+                                                             labels=ratings_train_tf - 1,
+                                                             name="cross_entropy")
+
+                training_loss = tf.reduce_mean(total_training_loss)
+
+                global_step = tf.Variable(1, name='global_step', trainable=False)
+
+                learning_rate = tf.Variable(learning_rate, trainable=False, dtype=tf.float32, name="learning_rate")
+                learning_rate = tf.train.exponential_decay(learning_rate, global_step, 100000, 1)
+
+                # Gradients and update operation for training the model.
+                opt = tf.train.AdadeltaOptimizer(learning_rate)
+                #                 opt = tf.train.AdamOptimizer(learning_rate)
+                update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+
+                with tf.control_dependencies(update_ops):
+                    # Update all the trainable parameters
+                    train_op = opt.minimize(training_loss, global_step=global_step)
+
+                saver = tf.train.Saver(max_to_keep=3)
+
+                writer = tf.summary.FileWriter(log_path, sess.graph)
+                writer.flush()
+
+                tf.summary.scalar('loss', training_loss)
+                tf.summary.scalar('learning_rate', learning_rate)
+                tf.summary.scalar('square_error', square_error_train)
+                summaries_merged = tf.summary.merge_all()
+
+                sess.run(tf.global_variables_initializer())
+
+                for epoch in range(epochs):
+
+                    users_shuf, movies_shuf, ratings_shuf = shuffle(users_train, movies_train, ratings_train)
+
+                    total_square_error_train = 0
+                    total_square_error_validation = 0
+
+                    sess.run(iterator_train.initializer, feed_dict={users_train_placeholder: users_shuf,
+                                                                    movies_train_placeholder: movies_shuf,
+                                                                    ratings_train_placeholder: ratings_shuf
+                                                                    })
+                    try:
+                        pbar = tqdm(total=len(users_train))
+                        pbar.set_description('[Epoch:{:4d}]'.format(epoch + 1))
+                        while True:
+                            error, summary, _, step = sess.run([square_error_train, summaries_merged,
+                                                               train_op, global_step])
+
+                            total_square_error_train += error
+                            writer.add_summary(summary, step)
+
+                            pbar.update(batch_size)
+
+                    except tf.errors.OutOfRangeError:
+                        pass
+
+                    train_error = math.sqrt(total_square_error_train / len(users_train))
+
+                    saver.save(sess, os.path.join(log_path, "model"), global_step=epoch + 1)
+
+                    if validation:
+                        sess.run(iterator_validation.initializer,
+                                 feed_dict={users_validation_placeholder: users_validation,
+                                            movies_validation_placeholder: movies_validation,
+                                            ratings_validation_placeholder: ratings_validation
+                                            })
+
+                        try:
+                            while True:
+                                error = sess.run(square_error_validation)
+                                total_square_error_validation += error
+                        except tf.errors.OutOfRangeError:
+                            pass
+
+                        validation_error = math.sqrt(total_square_error_validation / len(users_validation))
+
+                        pbar.set_postfix_str("Train RMSE: {:3.4f}; Valid RMSE: {:3.4f}"
+                                             .format(train_error, validation_error))
+
+                    else:
+                        pbar.set_postfix_str("Train RMSE: {:3.4f};".format(train_error))
+
+                    pbar.close()
 
     def predict(self,
                 users_test,
-                movies_test):
+                movies_test,
+                log_path=None,
+                batch_size=512):
 
-        users_test = users_test.reshape(-1, 1)
-        movies_test = movies_test.reshape(-1, 1)
+        if log_path is None:
+            log_path = DEFAULT_LOG_PATH
 
-        predictions = self.model.predict([movies_test, users_test])
+        with tf.Graph().as_default():
+            with tf.Session() as sess:
 
-        return np.sum(predictions * [1, 2, 3, 4, 5], axis=1)
+                users_placeholder = tf.placeholder(tf.int64, [None], name='users_placeholder')
+                movies_placeholder = tf.placeholder(tf.int64, [None], name='movies_placeholder')
+
+                dataset = tf.data.Dataset.from_tensor_slices((users_placeholder, movies_placeholder))
+                dataset = dataset.batch(batch_size=batch_size, drop_remainder=False)
+
+                iterator = dataset.make_initializable_iterator()
+
+                users_tf, movies_tf = iterator.get_next()
+
+                ratings_predictions = self.logits_to_predictions(self.create_graph(users_tf,
+                                                                                   movies_tf,
+                                                                                   training=False,
+                                                                                   reuse=False))
+
+                saver = tf.train.Saver()
+                saver.restore(sess, tf.train.latest_checkpoint(log_path))
+
+                sess.run(iterator.initializer, feed_dict={users_placeholder: users_test,
+                                                          movies_placeholder: movies_test})
+
+                total_predictions = list()
+
+                try:
+                    with tqdm(total=len(users_test)) as pbar:
+                        while True:
+                            predictions_batch = sess.run(ratings_predictions)
+
+                            total_predictions.append(predictions_batch)
+                            pbar.update(batch_size)
+
+                except tf.errors.OutOfRangeError:
+                    pass
+
+                return np.concatenate(total_predictions, axis=0)
