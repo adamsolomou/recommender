@@ -100,4 +100,5 @@ for masking in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
                  ratings_validations=ratings_test, n_epochs=200, verbose=False)
 
     preds = model3.predict(data_zeros, users_test, movies_test)
-    print(root_mean_square_error(ratings_test, preds))
+    score = root_mean_square_error(ratings_test, preds)
+    print("masking: {} score: {}".format(masking, score))
