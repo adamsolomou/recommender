@@ -1,0 +1,1006 @@
+Sender: LSF System <lsfadmin@lo-s4-020>
+Subject: Job 2283068: <python main.py> in cluster <leonhard> Done
+
+Job <python main.py> was submitted from host <lo-login-01> by user <sanagnos> in cluster <leonhard> at Mon Jun 24 17:29:42 2019
+Job was executed on host(s) <2*lo-s4-020>, in queue <gpu.4h>, as user <sanagnos> in cluster <leonhard> at Mon Jun 24 17:29:58 2019
+</cluster/home/sanagnos> was used as the home directory.
+</cluster/home/sanagnos/CIL/git/recommender/src> was used as the working directory.
+Started at Mon Jun 24 17:29:58 2019
+Terminated at Mon Jun 24 18:58:21 2019
+Results reported at Mon Jun 24 18:58:21 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python main.py
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   9941.56 sec.
+    Max Memory :                                 2437 MB
+    Average Memory :                             2182.86 MB
+    Total Requested Memory :                     8192.00 MB
+    Delta Memory :                               5755.00 MB
+    Max Swap :                                   -
+    Max Processes :                              3
+    Max Threads :                                42
+    Run time :                                   5323 sec.
+    Turnaround time :                            5319 sec.
+
+The output (if any) follows:
+
+2019-06-24 17:30:04.922195: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-06-24 17:30:05.178371: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: GeForce GTX 1080 major: 6 minor: 1 memoryClockRate(GHz): 1.7335
+pciBusID: 0000:06:00.0
+totalMemory: 7.93GiB freeMemory: 7.82GiB
+2019-06-24 17:30:05.178414: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:30:06.516020: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:30:06.516068: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:30:06.516078: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:30:06.516922: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:30:16.808894: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:30:16.809469: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:30:16.809482: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:30:16.809489: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:30:16.810210: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:34:34.917562: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:34:34.918158: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:34:34.918170: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:34:34.918177: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:34:34.918678: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:34:35.425086: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:34:35.425127: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:34:35.425136: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:34:35.425149: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:34:35.425566: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:39:05.288145: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:39:05.288505: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:39:05.288519: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:39:05.288526: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:39:05.289026: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:39:05.785004: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:39:05.785046: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:39:05.785055: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:39:05.785062: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:39:05.785586: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:43:31.132376: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:43:31.132632: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:43:31.132659: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:43:31.132680: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:43:31.133128: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:43:31.609175: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:43:31.609213: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:43:31.609222: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:43:31.609228: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:43:31.609771: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:47:46.868684: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:47:46.869004: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:47:46.869016: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:47:46.869023: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:47:46.869576: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:47:47.322524: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:47:47.322559: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:47:47.322568: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:47:47.322574: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:47:47.323109: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:52:13.270145: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:52:13.270656: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:52:13.270669: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:52:13.270676: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:52:13.271216: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:52:13.772530: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:52:13.772568: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:52:13.772578: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:52:13.772585: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:52:13.773060: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:56:50.690754: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:56:50.691052: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:56:50.691066: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:56:50.691073: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:56:50.691609: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 17:56:51.196511: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 17:56:51.196550: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 17:56:51.196559: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 17:56:51.196566: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 17:56:51.197044: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:01:31.292032: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:01:31.292441: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:01:31.292454: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:01:31.292461: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:01:31.292967: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:01:31.778056: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:01:31.778093: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:01:31.778102: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:01:31.778109: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:01:31.778601: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:06:14.126879: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:06:14.127196: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:06:14.127214: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:06:14.127221: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:06:14.127770: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:06:14.640990: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:06:14.641031: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:06:14.641041: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:06:14.641048: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:06:14.641592: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:11:00.686421: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:11:00.686824: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:11:00.686836: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:11:00.686843: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:11:00.687347: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:11:01.188077: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:11:01.188117: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:11:01.188126: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:11:01.188132: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:11:01.188615: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:15:47.073926: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:15:47.075036: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:15:47.075049: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:15:47.075055: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:15:47.075721: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:15:47.590879: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:15:47.590918: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:15:47.590927: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:15:47.590933: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:15:47.591593: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:20:40.195175: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:20:40.195412: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:20:40.195426: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:20:40.195434: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:20:40.196009: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:20:40.711255: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:20:40.711295: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:20:40.711304: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:20:40.711311: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:20:40.711859: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:25:43.113702: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:25:43.114056: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:25:43.114068: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:25:43.114074: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:25:43.114694: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:25:43.644161: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:25:43.644200: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:25:43.644209: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:25:43.644216: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:25:43.644758: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:30:49.046932: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:30:49.047207: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:30:49.047220: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:30:49.047228: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:30:49.047774: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:30:49.578872: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:30:49.578912: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:30:49.578921: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:30:49.578928: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:30:49.579504: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:36:03.921823: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:36:03.922463: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:36:03.922478: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:36:03.922486: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:36:03.923017: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:36:04.461944: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:36:04.461984: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:36:04.461993: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:36:04.462000: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:36:04.462501: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:41:23.635946: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:41:23.636324: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:41:23.636364: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:41:23.636371: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:41:23.636870: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:41:24.169350: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:41:24.169390: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:41:24.169399: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:41:24.169405: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:41:24.169900: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:46:48.426081: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:46:48.426668: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:46:48.426681: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:46:48.426689: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:46:48.427015: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:46:48.949378: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:46:48.949420: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:46:48.949436: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:46:48.949444: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:46:48.949986: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:52:12.047535: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:52:12.047810: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:52:12.047825: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:52:12.047833: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:52:12.048344: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:52:12.585670: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:52:12.585711: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:52:12.585721: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:52:12.585728: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:52:12.586192: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+2019-06-24 18:58:19.830537: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-06-24 18:58:19.830958: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-06-24 18:58:19.830975: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-06-24 18:58:19.830982: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-06-24 18:58:19.831795: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 7545 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080, pci bus id: 0000:06:00.0, compute capability: 6.1)
+/cluster/apps/python/3.6.4/lib64/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+main.py:47: FutureWarning: currently extract(expand=None) means expand=False (return Index/Series/DataFrame) but in a future version of pandas this will be changed to expand=True (return DataFrame)
+  for user, movie in train.Id.str.extract('r(\d+)_c(\d+)').values:
+main.py:56: FutureWarning: currently extract(expand=None) means expand=False (return Index/Series/DataFrame) but in a future version of pandas this will be changed to expand=True (return DataFrame)
+  for user, movie in test.Id.str.extract('r(\d+)_c(\d+)').values:
+Found GPU at: /device:GPU:0
+----------------> hidden_size 4
+Creating graph
+Epoch 1 train rmse 1.046892880084552 val rmse 1.0088157329650633
+Epoch 2 train rmse 1.0051474269279412 val rmse 1.0009951180953027
+Epoch 3 train rmse 0.9991557363378583 val rmse 0.9984091973433958
+Epoch 4 train rmse 0.9968577408462896 val rmse 0.997648340373445
+Epoch 5 train rmse 0.995362717922104 val rmse 0.9970164024033158
+Epoch 6 train rmse 0.9943408089383162 val rmse 0.9966071625694293
+Epoch 7 train rmse 0.9938885831396328 val rmse 0.9966144400866886
+Epoch 8 train rmse 0.993521601880615 val rmse 0.9963101384715108
+Epoch 9 train rmse 0.9933408261261115 val rmse 0.996527602031428
+Epoch 10 train rmse 0.9928473438726888 val rmse 0.9958447783678519
+Epoch 11 train rmse 0.9925198086331086 val rmse 0.9957674440505878
+Epoch 12 train rmse 0.9920799261909745 val rmse 0.9956051040603591
+Epoch 13 train rmse 0.9920735332516122 val rmse 0.9955392866186668
+Epoch 14 train rmse 0.991662233090436 val rmse 0.9953308280138412
+Epoch 15 train rmse 0.9915488017651897 val rmse 0.9951596619881494
+Epoch 16 train rmse 0.9910687724930027 val rmse 0.9949017159697192
+Epoch 17 train rmse 0.9910538279375953 val rmse 0.9948169804920687
+Epoch 18 train rmse 0.9908501325614997 val rmse 0.9946395308521004
+Epoch 19 train rmse 0.9905748954087006 val rmse 0.9946999476349988
+Epoch 20 train rmse 0.9904944606728147 val rmse 0.9947967774653693
+Epoch 21 train rmse 0.9903465568942197 val rmse 0.9948048400631205
+Epoch 22 train rmse 0.990073177616676 val rmse 0.9942361510834339
+Epoch 23 train rmse 0.9899949486167708 val rmse 0.9941122786843132
+Epoch 24 train rmse 0.9897364051845581 val rmse 0.9938487791167258
+Epoch 25 train rmse 0.989776750019043 val rmse 0.9942084989842646
+Epoch 26 train rmse 0.9895266559817977 val rmse 0.9941131677369369
+Epoch 27 train rmse 0.9893664232978152 val rmse 0.9936964698900836
+Epoch 28 train rmse 0.9892142312792949 val rmse 0.993528317865954
+Epoch 29 train rmse 0.9890205491680374 val rmse 0.9937433210579661
+Epoch 30 train rmse 0.9889476200832318 val rmse 0.9934960222745932
+Epoch 31 train rmse 0.9888625740458047 val rmse 0.9932816993212653
+Epoch 32 train rmse 0.9885519837326603 val rmse 0.9932379791645898
+Epoch 33 train rmse 0.9886988812334593 val rmse 0.9932250546898773
+Epoch 34 train rmse 0.9883154939690483 val rmse 0.9930976533158319
+Epoch 35 train rmse 0.988329230299401 val rmse 0.9929990501431014
+Epoch 36 train rmse 0.9880620124843154 val rmse 0.9927999963247062
+Epoch 37 train rmse 0.9880136585829955 val rmse 0.9930312003371415
+Epoch 38 train rmse 0.9879173743670574 val rmse 0.9936639373880963
+Epoch 39 train rmse 0.9876671364611406 val rmse 0.9944854866149135
+Epoch 40 train rmse 0.9878058871085983 val rmse 0.9931961356215558
+0.9931961355323983
+----------------> hidden_size 8
+Creating graph
+Epoch 1 train rmse 1.0455155407358159 val rmse 1.0075028358995333
+Epoch 2 train rmse 1.0037794228717272 val rmse 1.0013079291280114
+Epoch 3 train rmse 0.9975735426069507 val rmse 0.9981527176678682
+Epoch 4 train rmse 0.9945926189159665 val rmse 0.9972265091854033
+Epoch 5 train rmse 0.9929101336779487 val rmse 0.9966391608273123
+Epoch 6 train rmse 0.9918414597775908 val rmse 0.9961066280375308
+Epoch 7 train rmse 0.9909677109263233 val rmse 0.9959351717202519
+Epoch 8 train rmse 0.9905078953408671 val rmse 0.9956926210385122
+Epoch 9 train rmse 0.9898441279275579 val rmse 0.9954002373843318
+Epoch 10 train rmse 0.9892772807954223 val rmse 0.9949043132173874
+Epoch 11 train rmse 0.9889818042939537 val rmse 0.9950116722016097
+Epoch 12 train rmse 0.9886228656507895 val rmse 0.994684584677433
+Epoch 13 train rmse 0.9882013938101016 val rmse 0.9945411220846652
+Epoch 14 train rmse 0.98773967617915 val rmse 0.9946989468396389
+Epoch 15 train rmse 0.987408315345705 val rmse 0.9941806279281599
+Epoch 16 train rmse 0.9872079223430341 val rmse 0.9940007105828346
+Epoch 17 train rmse 0.9865837694408784 val rmse 0.9931321322352257
+Epoch 18 train rmse 0.9861302656069456 val rmse 0.9932761769357126
+Epoch 19 train rmse 0.9857451457616332 val rmse 0.9925849406397175
+Epoch 20 train rmse 0.9852074827046703 val rmse 0.9923769210111223
+Epoch 21 train rmse 0.9847859469953792 val rmse 0.9919905845118674
+Epoch 22 train rmse 0.9843738355992874 val rmse 0.9920542117702905
+Epoch 23 train rmse 0.9837495539333747 val rmse 0.9911887787257226
+Epoch 24 train rmse 0.9833260139045077 val rmse 0.991101496288362
+Epoch 25 train rmse 0.9826282983993195 val rmse 0.990563927693886
+Epoch 26 train rmse 0.9819866048615361 val rmse 0.990313195417165
+Epoch 27 train rmse 0.9814224871523363 val rmse 0.9900731217334321
+Epoch 28 train rmse 0.9809892909967174 val rmse 0.9899622172469825
+Epoch 29 train rmse 0.9805876084571631 val rmse 0.9897929395411559
+Epoch 30 train rmse 0.9802838097350047 val rmse 0.9896913584962224
+Epoch 31 train rmse 0.9798496876606834 val rmse 0.9894008810591712
+Epoch 32 train rmse 0.9796745223648826 val rmse 0.9890454052868182
+Epoch 33 train rmse 0.9789726785346613 val rmse 0.9887161892192616
+Epoch 34 train rmse 0.9785127598802584 val rmse 0.9888808247962081
+Epoch 35 train rmse 0.9782549422248372 val rmse 0.988227599972083
+Epoch 36 train rmse 0.9776315036161323 val rmse 0.9879513920362682
+Epoch 37 train rmse 0.9772327396996444 val rmse 0.9880175236037113
+Epoch 38 train rmse 0.9769738658631635 val rmse 0.9877539745557841
+Epoch 39 train rmse 0.9763898714346673 val rmse 0.9873379950142631
+Epoch 40 train rmse 0.975886532396097 val rmse 0.9872519479068519
+0.9872519457327362
+----------------> hidden_size 16
+Creating graph
+Epoch 1 train rmse 1.0426756810714473 val rmse 1.0079370359032074
+Epoch 2 train rmse 1.0021629711055937 val rmse 0.9988491111242552
+Epoch 3 train rmse 0.9954472810395897 val rmse 0.9969548728946479
+Epoch 4 train rmse 0.992607870466013 val rmse 0.9962299026219648
+Epoch 5 train rmse 0.9907275605038003 val rmse 0.9957889625962387
+Epoch 6 train rmse 0.9894933931062367 val rmse 0.995216772473153
+Epoch 7 train rmse 0.9886047757821221 val rmse 0.9950144733825504
+Epoch 8 train rmse 0.987829314795421 val rmse 0.9943751984444434
+Epoch 9 train rmse 0.9870744116013264 val rmse 0.994128930404191
+Epoch 10 train rmse 0.9859312841530807 val rmse 0.9935311995387729
+Epoch 11 train rmse 0.9852184333240881 val rmse 0.9927603309095103
+Epoch 12 train rmse 0.9845937371964976 val rmse 0.9924520479761615
+Epoch 13 train rmse 0.9833671160425167 val rmse 0.9916495757143478
+Epoch 14 train rmse 0.9826511898764975 val rmse 0.991507475005143
+Epoch 15 train rmse 0.981679986380757 val rmse 0.9912362138217307
+Epoch 16 train rmse 0.9808172838879676 val rmse 0.9903449930477567
+Epoch 17 train rmse 0.9799462528243899 val rmse 0.9898666030693898
+Epoch 18 train rmse 0.9791121619551176 val rmse 0.9892680613830502
+Epoch 19 train rmse 0.9782743699597174 val rmse 0.9886555197767363
+Epoch 20 train rmse 0.9772433776542043 val rmse 0.9884209662049818
+Epoch 21 train rmse 0.9763622670125565 val rmse 0.9875598591270387
+Epoch 22 train rmse 0.9753016232992162 val rmse 0.987736069306847
+Epoch 23 train rmse 0.9744631600041863 val rmse 0.9869346156609355
+Epoch 24 train rmse 0.9738573115419022 val rmse 0.9866711838890468
+Epoch 25 train rmse 0.9732006700055612 val rmse 0.9865058079297899
+Epoch 26 train rmse 0.9725453260069389 val rmse 0.9860138262959814
+Epoch 27 train rmse 0.971879037733647 val rmse 0.9860161342420037
+Epoch 28 train rmse 0.9713956990487154 val rmse 0.9861601068194669
+Epoch 29 train rmse 0.971068105691329 val rmse 0.9865454897234633
+Epoch 30 train rmse 0.9703291010953659 val rmse 0.9857423819502552
+Epoch 31 train rmse 0.9699918482868584 val rmse 0.9855886018744916
+Epoch 32 train rmse 0.9695439074621016 val rmse 0.9858295471748802
+Epoch 33 train rmse 0.9692155461617594 val rmse 0.985454597608659
+Epoch 34 train rmse 0.9688704190067843 val rmse 0.9855240308411171
+Epoch 35 train rmse 0.9685099689151645 val rmse 0.9852142066062008
+Epoch 36 train rmse 0.9679839925740571 val rmse 0.9857488832925835
+Epoch 37 train rmse 0.9674982433778291 val rmse 0.9851598043094438
+Epoch 38 train rmse 0.9674401028863074 val rmse 0.9853795212181781
+Epoch 39 train rmse 0.9668984456586321 val rmse 0.9857688576740309
+Epoch 40 train rmse 0.9665917569308682 val rmse 0.9867467401768142
+0.9867467404796936
+----------------> hidden_size 24
+Creating graph
+Epoch 1 train rmse 1.0419741188579115 val rmse 1.006618260722231
+Epoch 2 train rmse 1.0006057464148392 val rmse 0.9987736514807484
+Epoch 3 train rmse 0.9943265166575581 val rmse 0.9971353299137004
+Epoch 4 train rmse 0.9917330038489668 val rmse 0.9967070522991924
+Epoch 5 train rmse 0.9900637984834039 val rmse 0.995593443169072
+Epoch 6 train rmse 0.9888329416293626 val rmse 0.9952637650328848
+Epoch 7 train rmse 0.9877333243895671 val rmse 0.9945809732367216
+Epoch 8 train rmse 0.9866493498630459 val rmse 0.9940203648106946
+Epoch 9 train rmse 0.9856163430539026 val rmse 0.9943502595302975
+Epoch 10 train rmse 0.9844717857600389 val rmse 0.9926467120791688
+Epoch 11 train rmse 0.9831617455333729 val rmse 0.9921025249721452
+Epoch 12 train rmse 0.9816454471272106 val rmse 0.9913810926874875
+Epoch 13 train rmse 0.9803441233667901 val rmse 0.9907795979339352
+Epoch 14 train rmse 0.9786528918433723 val rmse 0.9895258824707828
+Epoch 15 train rmse 0.9772853637584655 val rmse 0.9888691273145748
+Epoch 16 train rmse 0.9760489107710124 val rmse 0.988613896531972
+Epoch 17 train rmse 0.9745695786093364 val rmse 0.9876618838907899
+Epoch 18 train rmse 0.9737126308330684 val rmse 0.987397237956572
+Epoch 19 train rmse 0.9724842283559025 val rmse 0.9871173901214022
+Epoch 20 train rmse 0.9715143353473364 val rmse 0.9870604866558934
+Epoch 21 train rmse 0.9707895648991755 val rmse 0.9864477540930293
+Epoch 22 train rmse 0.9698187720241782 val rmse 0.9863846205842869
+Epoch 23 train rmse 0.9695327774931906 val rmse 0.9863845629373669
+Epoch 24 train rmse 0.9688377435713136 val rmse 0.9857268086618768
+Epoch 25 train rmse 0.968240490819143 val rmse 0.9859615222845077
+Epoch 26 train rmse 0.9678492441480251 val rmse 0.9859598127264526
+Epoch 27 train rmse 0.9671976400200512 val rmse 0.9866315371984355
+Epoch 28 train rmse 0.9667926090965403 val rmse 0.9858979290449432
+Epoch 29 train rmse 0.9662340073776061 val rmse 0.9853989099846113
+Epoch 30 train rmse 0.9657990621014374 val rmse 0.9857233159779871
+Epoch 31 train rmse 0.9652055757145349 val rmse 0.9855435714427841
+Epoch 32 train rmse 0.9648411807272562 val rmse 0.9857137684457186
+Epoch 33 train rmse 0.9644316246823237 val rmse 0.9854178495100588
+Epoch 34 train rmse 0.9640752077674254 val rmse 0.9855471979080676
+Epoch 35 train rmse 0.9635533815104917 val rmse 0.9852147057648246
+Epoch 36 train rmse 0.9629546928540275 val rmse 0.98542387394262
+Epoch 37 train rmse 0.9626503420601992 val rmse 0.9857182899230154
+Epoch 38 train rmse 0.9622268787452392 val rmse 0.9859985705065571
+Epoch 39 train rmse 0.961532115344046 val rmse 0.9853658091917521
+Epoch 40 train rmse 0.9611178414724946 val rmse 0.9858814450327199
+0.9858814445596796
+----------------> hidden_size 32
+Creating graph
+Epoch 1 train rmse 1.039323868509827 val rmse 1.005011638796259
+Epoch 2 train rmse 0.9997269989201193 val rmse 0.9987684525023903
+Epoch 3 train rmse 0.994097137340982 val rmse 0.99754719672306
+Epoch 4 train rmse 0.991557733318535 val rmse 0.9963462053321654
+Epoch 5 train rmse 0.9896916615401453 val rmse 0.9954919222541161
+Epoch 6 train rmse 0.9882777132421858 val rmse 0.9948904356772965
+Epoch 7 train rmse 0.9871529449243103 val rmse 0.9942614342088606
+Epoch 8 train rmse 0.9857947606711552 val rmse 0.9937950750473703
+Epoch 9 train rmse 0.9845119827895545 val rmse 0.9929780449216014
+Epoch 10 train rmse 0.9829618122160874 val rmse 0.9919513315994614
+Epoch 11 train rmse 0.981338912707982 val rmse 0.9908498690360888
+Epoch 12 train rmse 0.9794845667101586 val rmse 0.9901408540721076
+Epoch 13 train rmse 0.9776684018718199 val rmse 0.9895621181281009
+Epoch 14 train rmse 0.9759636635604448 val rmse 0.9885025656220617
+Epoch 15 train rmse 0.9744167250033222 val rmse 0.9877069042380551
+Epoch 16 train rmse 0.9728950860205389 val rmse 0.987565880772559
+Epoch 17 train rmse 0.9715612874517764 val rmse 0.9874954201632673
+Epoch 18 train rmse 0.9704948229043026 val rmse 0.986920956975677
+Epoch 19 train rmse 0.9698058450498104 val rmse 0.9866551453300267
+Epoch 20 train rmse 0.9687693746349578 val rmse 0.9872006420772369
+Epoch 21 train rmse 0.968200503213165 val rmse 0.9863252332185503
+Epoch 22 train rmse 0.9671953705022803 val rmse 0.9868254958552106
+Epoch 23 train rmse 0.9666267729282451 val rmse 0.9864230582859693
+Epoch 24 train rmse 0.9660923148721582 val rmse 0.9867260928633482
+Epoch 25 train rmse 0.9655006156903856 val rmse 0.9867280025415348
+Epoch 26 train rmse 0.9648699051842176 val rmse 0.986245220156675
+Epoch 27 train rmse 0.9642958904616532 val rmse 0.9863319464275163
+Epoch 28 train rmse 0.9638249206908818 val rmse 0.9863007126647023
+Epoch 29 train rmse 0.9629275334744377 val rmse 0.9863003584864424
+Epoch 30 train rmse 0.962285020376029 val rmse 0.985995425789233
+Epoch 31 train rmse 0.9618820467306947 val rmse 0.98615287492037
+Epoch 32 train rmse 0.9614071165269387 val rmse 0.9866884329479237
+Epoch 33 train rmse 0.9605456760368561 val rmse 0.9861609933490681
+Epoch 34 train rmse 0.9598567101068586 val rmse 0.9858178338645093
+Epoch 35 train rmse 0.9594346805522411 val rmse 0.9857107176488888
+Epoch 36 train rmse 0.958636630885099 val rmse 0.9859867923877984
+Epoch 37 train rmse 0.9578036277038053 val rmse 0.9856654159657051
+Epoch 38 train rmse 0.9570066271536211 val rmse 0.9862447885375023
+Epoch 39 train rmse 0.9562801501766683 val rmse 0.9856666949290435
+Epoch 40 train rmse 0.9557162774446389 val rmse 0.9862034346791425
+0.9862034345516522
+----------------> hidden_size 40
+Creating graph
+Epoch 1 train rmse 1.0394147643214762 val rmse 1.0055383366181894
+Epoch 2 train rmse 0.9998386860182139 val rmse 0.998792175138634
+Epoch 3 train rmse 0.9940862064208978 val rmse 0.996805691293811
+Epoch 4 train rmse 0.9912203723077595 val rmse 0.9959773807789927
+Epoch 5 train rmse 0.9895801253743729 val rmse 0.9953346973552633
+Epoch 6 train rmse 0.9879524521535303 val rmse 0.9957399993384715
+Epoch 7 train rmse 0.9865656041014206 val rmse 0.9944583725122296
+Epoch 8 train rmse 0.9852773542993996 val rmse 0.9932424361072257
+Epoch 9 train rmse 0.983693249642099 val rmse 0.9925969594286103
+Epoch 10 train rmse 0.9820034534616764 val rmse 0.9916496795051003
+Epoch 11 train rmse 0.9802231305916965 val rmse 0.991017438321887
+Epoch 12 train rmse 0.9783219133423593 val rmse 0.9899121984811307
+Epoch 13 train rmse 0.9765395653258555 val rmse 0.9891532022238093
+Epoch 14 train rmse 0.9748015866893605 val rmse 0.9892343743021639
+Epoch 15 train rmse 0.9732243725954284 val rmse 0.9877953600980858
+Epoch 16 train rmse 0.9718215545935275 val rmse 0.9875260556478312
+Epoch 17 train rmse 0.9703277797989734 val rmse 0.98685888070839
+Epoch 18 train rmse 0.9694259616922476 val rmse 0.9875597547424125
+Epoch 19 train rmse 0.9685208528678418 val rmse 0.9868684625238809
+Epoch 20 train rmse 0.9677023020054873 val rmse 0.9871149296070866
+Epoch 21 train rmse 0.9668933243801278 val rmse 0.9865959092215992
+Epoch 22 train rmse 0.965920372146488 val rmse 0.9870741970234276
+Epoch 23 train rmse 0.9653643095354066 val rmse 0.9878807802865376
+Epoch 24 train rmse 0.9649201107133183 val rmse 0.9870399413181213
+Epoch 25 train rmse 0.9639006710552952 val rmse 0.9862262373855455
+Epoch 26 train rmse 0.9633777609763661 val rmse 0.98626764843432
+Epoch 27 train rmse 0.9629006115034529 val rmse 0.9862549077481123
+Epoch 28 train rmse 0.9620752789975388 val rmse 0.9859999875976844
+Epoch 29 train rmse 0.961478550278232 val rmse 0.9861730549459106
+Epoch 30 train rmse 0.9606902197211287 val rmse 0.986290868443669
+Epoch 31 train rmse 0.9601364525580811 val rmse 0.9862180893241135
+Epoch 32 train rmse 0.9592530106757347 val rmse 0.9866475051553427
+Epoch 33 train rmse 0.9584688516330206 val rmse 0.9870713667988378
+Epoch 34 train rmse 0.9577306786787261 val rmse 0.9863544540325567
+Epoch 35 train rmse 0.956866680777672 val rmse 0.9864185215358281
+Epoch 36 train rmse 0.9561943390156129 val rmse 0.9863500046720992
+Epoch 37 train rmse 0.9551961562307035 val rmse 0.9868376851459263
+Epoch 38 train rmse 0.9538772221124695 val rmse 0.9866987295245178
+Epoch 39 train rmse 0.9530781936272303 val rmse 0.9861927192493286
+Epoch 40 train rmse 0.9521338201418498 val rmse 0.9867143395733099
+0.9867143405776463
+----------------> hidden_size 48
+Creating graph
+Epoch 1 train rmse 1.0397075106187328 val rmse 1.0059857176279166
+Epoch 2 train rmse 0.9999276082147264 val rmse 0.999063738613504
+Epoch 3 train rmse 0.9939896960891542 val rmse 0.997086128404076
+Epoch 4 train rmse 0.991032663491989 val rmse 0.9959795271098305
+Epoch 5 train rmse 0.98920423285294 val rmse 0.9954162244406543
+Epoch 6 train rmse 0.9875287241597229 val rmse 0.9945733603930433
+Epoch 7 train rmse 0.9859362886996577 val rmse 0.9936226297608463
+Epoch 8 train rmse 0.9840421226221133 val rmse 0.9925731307258057
+Epoch 9 train rmse 0.9820032813587585 val rmse 0.9914792509628398
+Epoch 10 train rmse 0.9796632805944858 val rmse 0.9906201942048956
+Epoch 11 train rmse 0.9776197787605386 val rmse 0.9892523254145463
+Epoch 12 train rmse 0.9755615486756262 val rmse 0.9888057168126648
+Epoch 13 train rmse 0.973449001034681 val rmse 0.987892964701053
+Epoch 14 train rmse 0.9719567538129625 val rmse 0.9874819778566394
+Epoch 15 train rmse 0.9705020082104192 val rmse 0.9873844381239025
+Epoch 16 train rmse 0.969384698277836 val rmse 0.9867980779783389
+Epoch 17 train rmse 0.9681827992744753 val rmse 0.9865721750956592
+Epoch 18 train rmse 0.9674687132508296 val rmse 0.9865163649953196
+Epoch 19 train rmse 0.9664616209728213 val rmse 0.9867425923171187
+Epoch 20 train rmse 0.9657790809592938 val rmse 0.9860050679142496
+Epoch 21 train rmse 0.9649828497255825 val rmse 0.9866632668503142
+Epoch 22 train rmse 0.9641477817976465 val rmse 0.9861836652377584
+Epoch 23 train rmse 0.9634245625348721 val rmse 0.986261159874281
+Epoch 24 train rmse 0.9625761285913442 val rmse 0.9863369551757457
+Epoch 25 train rmse 0.9617850799773455 val rmse 0.985830211939058
+Epoch 26 train rmse 0.9608613160068827 val rmse 0.9862763022633676
+Epoch 27 train rmse 0.9599517892863187 val rmse 0.9862178202049433
+Epoch 28 train rmse 0.9589568206264621 val rmse 0.9862132589660546
+Epoch 29 train rmse 0.9578655365251096 val rmse 0.9864141388685554
+Epoch 30 train rmse 0.956895431321939 val rmse 0.9879043512947991
+Epoch 31 train rmse 0.9558593961010765 val rmse 0.9880380432028376
+Epoch 32 train rmse 0.9547360320635265 val rmse 0.9866278153256101
+Epoch 33 train rmse 0.9535309492917267 val rmse 0.9870787587152267
+Epoch 34 train rmse 0.9526910701477594 val rmse 0.9871553185636807
+Epoch 35 train rmse 0.9516110207191124 val rmse 0.9864689946552149
+Epoch 36 train rmse 0.9505751290982312 val rmse 0.9875052074814129
+Epoch 37 train rmse 0.9495642911089806 val rmse 0.9876315211894989
+Epoch 38 train rmse 0.9483346847416761 val rmse 0.9881551254157982
+Epoch 39 train rmse 0.9476870669637617 val rmse 0.987798131449214
+Epoch 40 train rmse 0.9461955024451 val rmse 0.987866503103929
+0.987866504130632
+----------------> hidden_size 56
+Creating graph
+Epoch 1 train rmse 1.0376685997765192 val rmse 1.0050595549544046
+Epoch 2 train rmse 0.9990814966530235 val rmse 0.9989022626347281
+Epoch 3 train rmse 0.993502984162398 val rmse 0.9970290998663419
+Epoch 4 train rmse 0.9910424422243819 val rmse 0.9961279425282276
+Epoch 5 train rmse 0.9891375982939957 val rmse 0.9954233536159961
+Epoch 6 train rmse 0.9875870933118882 val rmse 0.9945611144806755
+Epoch 7 train rmse 0.986259440675426 val rmse 0.9939236345012523
+Epoch 8 train rmse 0.984548492438262 val rmse 0.9932078574434562
+Epoch 9 train rmse 0.9826231907304313 val rmse 0.9919961920606368
+Epoch 10 train rmse 0.980391062640501 val rmse 0.9905129239299845
+Epoch 11 train rmse 0.9781836174404815 val rmse 0.9895363952558482
+Epoch 12 train rmse 0.9758288982217106 val rmse 0.9886552575476957
+Epoch 13 train rmse 0.9737505137416109 val rmse 0.9877377737677852
+Epoch 14 train rmse 0.9719341649315153 val rmse 0.9876245085470777
+Epoch 15 train rmse 0.9703586966457497 val rmse 0.9868964489798592
+Epoch 16 train rmse 0.9691396104356065 val rmse 0.9866854912289842
+Epoch 17 train rmse 0.9679692065163878 val rmse 0.9872397787729194
+Epoch 18 train rmse 0.9668248895059689 val rmse 0.986567312973262
+Epoch 19 train rmse 0.9657817872848585 val rmse 0.9862793807121328
+Epoch 20 train rmse 0.9646475010118246 val rmse 0.9868615838283427
+Epoch 21 train rmse 0.9638424591364326 val rmse 0.9868365688516321
+Epoch 22 train rmse 0.9630264544258837 val rmse 0.9862863418713977
+Epoch 23 train rmse 0.9620003097254294 val rmse 0.9870751504047511
+Epoch 24 train rmse 0.9610006073783898 val rmse 0.9866505646037241
+Epoch 25 train rmse 0.9599458574830244 val rmse 0.9865487693639639
+Epoch 26 train rmse 0.9590524026357525 val rmse 0.9865347708383863
+Epoch 27 train rmse 0.9580702040887721 val rmse 0.9858824551623722
+Epoch 28 train rmse 0.9568095376808544 val rmse 0.9865629778753113
+Epoch 29 train rmse 0.9560729875853383 val rmse 0.9862363462190453
+Epoch 30 train rmse 0.9547335118155994 val rmse 0.986952801961228
+Epoch 31 train rmse 0.9539001027198244 val rmse 0.9872681688644154
+Epoch 32 train rmse 0.9524304169500845 val rmse 0.9867545676726021
+Epoch 33 train rmse 0.9515610027334269 val rmse 0.9877097118115303
+Epoch 34 train rmse 0.9504186511182815 val rmse 0.9872409240387808
+Epoch 35 train rmse 0.9495252947272522 val rmse 0.988198502688821
+Epoch 36 train rmse 0.9482176762784141 val rmse 0.9885607116073724
+Epoch 37 train rmse 0.9473028770111673 val rmse 0.9882384597794862
+Epoch 38 train rmse 0.946383322394146 val rmse 0.9883359067592996
+Epoch 39 train rmse 0.9447900373325772 val rmse 0.9895675190326945
+Epoch 40 train rmse 0.9437807460780334 val rmse 0.98820245411002
+0.9882024564159269
+----------------> hidden_size 64
+Creating graph
+Epoch 1 train rmse 1.0374592516933798 val rmse 1.0043693362211985
+Epoch 2 train rmse 0.999160347897034 val rmse 0.9984762841026562
+Epoch 3 train rmse 0.993455983768142 val rmse 0.9966775197364398
+Epoch 4 train rmse 0.9908219937178767 val rmse 0.9960144962475662
+Epoch 5 train rmse 0.9889577320925904 val rmse 0.9954864616551738
+Epoch 6 train rmse 0.9874634750475517 val rmse 0.994431453321884
+Epoch 7 train rmse 0.9858222487331143 val rmse 0.9937725474080151
+Epoch 8 train rmse 0.9839957489213432 val rmse 0.9928745728007575
+Epoch 9 train rmse 0.9818731260678145 val rmse 0.9913015161455828
+Epoch 10 train rmse 0.9793624673789212 val rmse 0.9906365465445877
+Epoch 11 train rmse 0.9768858154861556 val rmse 0.9896514737619556
+Epoch 12 train rmse 0.9745237844861508 val rmse 0.9886814162041384
+Epoch 13 train rmse 0.9723811380932289 val rmse 0.9876007493288896
+Epoch 14 train rmse 0.9706063431674485 val rmse 0.9873176178367764
+Epoch 15 train rmse 0.9691605805596232 val rmse 0.9873243088746139
+Epoch 16 train rmse 0.9680377181703699 val rmse 0.987174352994891
+Epoch 17 train rmse 0.9667813796986384 val rmse 0.9875213724400449
+Epoch 18 train rmse 0.9659134323498453 val rmse 0.9869655415170553
+Epoch 19 train rmse 0.9649609380035457 val rmse 0.9867420106937912
+Epoch 20 train rmse 0.9641468385064558 val rmse 0.9869696943487792
+Epoch 21 train rmse 0.9633832349182342 val rmse 0.9863463500071201
+Epoch 22 train rmse 0.9623100496975182 val rmse 0.9862844434927682
+Epoch 23 train rmse 0.9613978786483222 val rmse 0.9866090556731176
+Epoch 24 train rmse 0.9605975523935316 val rmse 0.9866139194507145
+Epoch 25 train rmse 0.9595286449872293 val rmse 0.9859963563900127
+Epoch 26 train rmse 0.9586592226188243 val rmse 0.9864207292851849
+Epoch 27 train rmse 0.9575909008773924 val rmse 0.9862125196100383
+Epoch 28 train rmse 0.956387735043047 val rmse 0.9867717664054352
+Epoch 29 train rmse 0.9551576704707347 val rmse 0.9863390119486154
+Epoch 30 train rmse 0.9541136247351345 val rmse 0.9871440155596894
+Epoch 31 train rmse 0.9526061914678632 val rmse 0.9873837020512296
+Epoch 32 train rmse 0.9514114616043488 val rmse 0.9867794585903777
+Epoch 33 train rmse 0.9502566594917173 val rmse 0.9876239604678563
+Epoch 34 train rmse 0.9488942951939655 val rmse 0.9869758153967598
+Epoch 35 train rmse 0.9474606825787986 val rmse 0.9882308625004651
+Epoch 36 train rmse 0.9461397608274619 val rmse 0.98887758177735
+Epoch 37 train rmse 0.9448623240432874 val rmse 0.9876506635028098
+Epoch 38 train rmse 0.9435209368926276 val rmse 0.9878611486562785
+Epoch 39 train rmse 0.9423308414352158 val rmse 0.9876725676352656
+Epoch 40 train rmse 0.9407800403740092 val rmse 0.9881791385784756
+0.9881791394522942
+----------------> hidden_size 72
+Creating graph
+Epoch 1 train rmse 1.0369556515181662 val rmse 1.0051794551025688
+Epoch 2 train rmse 0.9990504129537252 val rmse 0.9982675982400543
+Epoch 3 train rmse 0.9933925419242996 val rmse 0.9967874518643061
+Epoch 4 train rmse 0.9908708038042772 val rmse 0.9962373962962026
+Epoch 5 train rmse 0.9889685915772362 val rmse 0.995397424323299
+Epoch 6 train rmse 0.9872759175594301 val rmse 0.9946215171332279
+Epoch 7 train rmse 0.9857863625967569 val rmse 0.9939490235852914
+Epoch 8 train rmse 0.9840220589221669 val rmse 0.9927573056291215
+Epoch 9 train rmse 0.9820293728730214 val rmse 0.9918105833858174
+Epoch 10 train rmse 0.9796944889367899 val rmse 0.9903789148657531
+Epoch 11 train rmse 0.9770727580348075 val rmse 0.9893246318246887
+Epoch 12 train rmse 0.97453222615791 val rmse 0.9881801421516606
+Epoch 13 train rmse 0.9722966099905999 val rmse 0.9876547086964585
+Epoch 14 train rmse 0.9703869747540464 val rmse 0.9875977556492685
+Epoch 15 train rmse 0.9688035215196451 val rmse 0.9866178695009178
+Epoch 16 train rmse 0.9673608112274539 val rmse 0.9867000608365533
+Epoch 17 train rmse 0.9662683461557764 val rmse 0.986794175875177
+Epoch 18 train rmse 0.9650007024498338 val rmse 0.9866857812364186
+Epoch 19 train rmse 0.9639011060226509 val rmse 0.9867066336366456
+Epoch 20 train rmse 0.9629281265684966 val rmse 0.9864684027982735
+Epoch 21 train rmse 0.9618755865149979 val rmse 0.9858678668989588
+Epoch 22 train rmse 0.9607715128694434 val rmse 0.9867429896792647
+Epoch 23 train rmse 0.9597015792915348 val rmse 0.9862329755243149
+Epoch 24 train rmse 0.9582607897559658 val rmse 0.9862262084753256
+Epoch 25 train rmse 0.9573348609399986 val rmse 0.9868909559777193
+Epoch 26 train rmse 0.9557925677892624 val rmse 0.9870313067127896
+Epoch 27 train rmse 0.9547946094298991 val rmse 0.9864578642147003
+Epoch 28 train rmse 0.9533930486074554 val rmse 0.9878323434787413
+Epoch 29 train rmse 0.9519868246466396 val rmse 0.9870996859118789
+Epoch 30 train rmse 0.9504888407811701 val rmse 0.9877156055959282
+Epoch 31 train rmse 0.949069144197021 val rmse 0.9883279309886792
+Epoch 32 train rmse 0.9476509132838654 val rmse 0.9881188329158156
+Epoch 33 train rmse 0.9464421214835924 val rmse 0.9882993721250847
+Epoch 34 train rmse 0.9447840511158346 val rmse 0.9893149459639602
+Epoch 35 train rmse 0.943662669095507 val rmse 0.9889838873301707
+Epoch 36 train rmse 0.9417892178916254 val rmse 0.9891062079930554
+Epoch 37 train rmse 0.9405716820786643 val rmse 0.9900310122685358
+Epoch 38 train rmse 0.9388308304437127 val rmse 0.9895532683144305
+Epoch 39 train rmse 0.9375962455723996 val rmse 0.9896887369284426
+Epoch 40 train rmse 0.9359145672383838 val rmse 0.9905235566430701
+0.9905235573705262
+----------------> hidden_size 80
+Creating graph
+Epoch 1 train rmse 1.037674620630404 val rmse 1.0053372955723725
+Epoch 2 train rmse 0.9990301335138861 val rmse 0.9989779269466174
+Epoch 3 train rmse 0.9934174169998126 val rmse 0.9971400348495074
+Epoch 4 train rmse 0.9907967630227433 val rmse 0.9959821160166404
+Epoch 5 train rmse 0.9887231940903424 val rmse 0.995211341129842
+Epoch 6 train rmse 0.9871349853416561 val rmse 0.9946138916239783
+Epoch 7 train rmse 0.985512748063139 val rmse 0.993797910955621
+Epoch 8 train rmse 0.9837791069007843 val rmse 0.9930838661871154
+Epoch 9 train rmse 0.9816242910539712 val rmse 0.9917178183489661
+Epoch 10 train rmse 0.9794069392971719 val rmse 0.9905259507391284
+Epoch 11 train rmse 0.9768334310600085 val rmse 0.989357462241852
+Epoch 12 train rmse 0.9742519368386828 val rmse 0.9886706324306171
+Epoch 13 train rmse 0.9720458342673102 val rmse 0.9879406958384942
+Epoch 14 train rmse 0.9700216863458236 val rmse 0.9873290235905473
+Epoch 15 train rmse 0.9683693117795761 val rmse 0.9870530332199128
+Epoch 16 train rmse 0.9671142473928058 val rmse 0.9870027225320325
+Epoch 17 train rmse 0.9656375457427541 val rmse 0.9872736483363271
+Epoch 18 train rmse 0.9645344407198849 val rmse 0.9864369156831478
+Epoch 19 train rmse 0.9635070077758316 val rmse 0.9861491954310974
+Epoch 20 train rmse 0.9621111876061933 val rmse 0.9860775438196897
+Epoch 21 train rmse 0.960654581679321 val rmse 0.9867397303855526
+Epoch 22 train rmse 0.9596351114785407 val rmse 0.9871604050236853
+Epoch 23 train rmse 0.9585354629380473 val rmse 0.9863301228135316
+Epoch 24 train rmse 0.95705068986036 val rmse 0.9867179452081629
+Epoch 25 train rmse 0.9558434188713765 val rmse 0.986589398792205
+Epoch 26 train rmse 0.954717277024997 val rmse 0.9868955467505152
+Epoch 27 train rmse 0.9529863862698571 val rmse 0.9870806660152093
+Epoch 28 train rmse 0.951196702263623 val rmse 0.9873280248950154
+Epoch 29 train rmse 0.9502479289511883 val rmse 0.9879169224150125
+Epoch 30 train rmse 0.9487463025358307 val rmse 0.9887294404678266
+Epoch 31 train rmse 0.9471407739332666 val rmse 0.9883969350971175
+Epoch 32 train rmse 0.945299232509527 val rmse 0.9883340302931616
+Epoch 33 train rmse 0.9435804843026937 val rmse 0.9893175829867639
+Epoch 34 train rmse 0.9418635049326008 val rmse 0.9891538340189349
+Epoch 35 train rmse 0.9401454605226577 val rmse 0.9898399779806973
+Epoch 36 train rmse 0.9380085120147165 val rmse 0.9902162721321779
+Epoch 37 train rmse 0.9364866884583689 val rmse 0.9908859660845543
+Epoch 38 train rmse 0.9344286128482591 val rmse 0.9915552829910099
+Epoch 39 train rmse 0.9329069159039429 val rmse 0.9915686130586637
+Epoch 40 train rmse 0.9310836922507528 val rmse 0.9920382244229973
+0.9920382272021536
+----------------> hidden_size 88
+Creating graph
+Epoch 1 train rmse 1.0365282781398788 val rmse 1.0047023249354718
+Epoch 2 train rmse 0.9988601177129828 val rmse 0.9981713399481226
+Epoch 3 train rmse 0.9933012288380486 val rmse 0.9966759005645036
+Epoch 4 train rmse 0.9905642953643916 val rmse 0.9966353283011957
+Epoch 5 train rmse 0.9886573649637753 val rmse 0.9952238743741405
+Epoch 6 train rmse 0.9869870443948161 val rmse 0.9943227694564281
+Epoch 7 train rmse 0.9852282233170007 val rmse 0.9937382361775731
+Epoch 8 train rmse 0.9831355484327089 val rmse 0.9923013833178285
+Epoch 9 train rmse 0.9807368865351753 val rmse 0.9921312735530443
+Epoch 10 train rmse 0.977914589638822 val rmse 0.9898387331052285
+Epoch 11 train rmse 0.9751200774296878 val rmse 0.9888283639965069
+Epoch 12 train rmse 0.9728952097299643 val rmse 0.9875696990646075
+Epoch 13 train rmse 0.9706902494576812 val rmse 0.987345004003669
+Epoch 14 train rmse 0.9689807490969091 val rmse 0.9871170384790632
+Epoch 15 train rmse 0.9675035213043088 val rmse 0.9868994570981292
+Epoch 16 train rmse 0.9661293161844666 val rmse 0.9869709916468892
+Epoch 17 train rmse 0.9648576954055905 val rmse 0.9871669675927277
+Epoch 18 train rmse 0.9635478615316992 val rmse 0.9867375241708238
+Epoch 19 train rmse 0.9623267219497301 val rmse 0.9866287779501034
+Epoch 20 train rmse 0.9611929142305848 val rmse 0.9862066132290237
+Epoch 21 train rmse 0.960084657096255 val rmse 0.9891904152676272
+Epoch 22 train rmse 0.9585188486617553 val rmse 0.9867433601710262
+Epoch 23 train rmse 0.9571451574660726 val rmse 0.9866659747203753
+Epoch 24 train rmse 0.9558084972208695 val rmse 0.9867371160254838
+Epoch 25 train rmse 0.9542125034040164 val rmse 0.9876960774584559
+Epoch 26 train rmse 0.9529140095819681 val rmse 0.9884010740474916
+Epoch 27 train rmse 0.9515195095643229 val rmse 0.9880674642708475
+Epoch 28 train rmse 0.9500146316320919 val rmse 0.9868986047186321
+Epoch 29 train rmse 0.9484402367694932 val rmse 0.9872726873798316
+Epoch 30 train rmse 0.9467239573914811 val rmse 0.9878739115916961
+Epoch 31 train rmse 0.9452912217358669 val rmse 0.9884399034943014
+Epoch 32 train rmse 0.9435771909248404 val rmse 0.989282687660997
+Epoch 33 train rmse 0.9417118969086095 val rmse 0.9891689523797853
+Epoch 34 train rmse 0.9399861022481669 val rmse 0.9898763540683241
+Epoch 35 train rmse 0.9384318626906158 val rmse 0.9900900175513608
+Epoch 36 train rmse 0.936651239932216 val rmse 0.9902187080348526
+Epoch 37 train rmse 0.9350066025357044 val rmse 0.9906925349227536
+Epoch 38 train rmse 0.933180599128716 val rmse 0.9911820240459553
+Epoch 39 train rmse 0.931585306110023 val rmse 0.990776105621255
+Epoch 40 train rmse 0.930084895038661 val rmse 0.993009419736456
+0.9930094214787683
+----------------> hidden_size 96
+Creating graph
+Epoch 1 train rmse 1.0373270299351671 val rmse 1.0047861846297583
+Epoch 2 train rmse 0.9988766240854039 val rmse 0.9980024244808074
+Epoch 3 train rmse 0.9931993201408624 val rmse 0.9965684306453012
+Epoch 4 train rmse 0.9904419795220628 val rmse 0.9956939958060249
+Epoch 5 train rmse 0.988350639673636 val rmse 0.9948758476598583
+Epoch 6 train rmse 0.9865591142891624 val rmse 0.9938446385662691
+Epoch 7 train rmse 0.9845951901387496 val rmse 0.993072509292122
+Epoch 8 train rmse 0.9821554983190535 val rmse 0.9914450285041174
+Epoch 9 train rmse 0.9795426125061659 val rmse 0.9901190723367694
+Epoch 10 train rmse 0.9767830746524636 val rmse 0.9888734638794705
+Epoch 11 train rmse 0.9739127591336725 val rmse 0.9884795517856585
+Epoch 12 train rmse 0.9716260461107036 val rmse 0.9879847618549394
+Epoch 13 train rmse 0.9696038625622352 val rmse 0.9875839575728667
+Epoch 14 train rmse 0.9680938442893694 val rmse 0.9867843376167044
+Epoch 15 train rmse 0.9665259876596787 val rmse 0.986749295900719
+Epoch 16 train rmse 0.9652733998502949 val rmse 0.9869466821383739
+Epoch 17 train rmse 0.9638962614531666 val rmse 0.9864215999786988
+Epoch 18 train rmse 0.9626164892391462 val rmse 0.9861666187687609
+Epoch 19 train rmse 0.9614677210256656 val rmse 0.9868406418422563
+Epoch 20 train rmse 0.9602306706105844 val rmse 0.9863093500525173
+Epoch 21 train rmse 0.9589816260257782 val rmse 0.985936030754394
+Epoch 22 train rmse 0.9577193204143 val rmse 0.9872243976328612
+Epoch 23 train rmse 0.9561695025407763 val rmse 0.9862147653276192
+Epoch 24 train rmse 0.9545489566178584 val rmse 0.9875061228245534
+Epoch 25 train rmse 0.9528629896892379 val rmse 0.9873198322172425
+Epoch 26 train rmse 0.9512558816253499 val rmse 0.9874309964629743
+Epoch 27 train rmse 0.949559959958343 val rmse 0.9880506265039564
+Epoch 28 train rmse 0.9477275774797312 val rmse 0.9874323598735568
+Epoch 29 train rmse 0.9461212174199426 val rmse 0.9880833865607244
+Epoch 30 train rmse 0.9441649778066548 val rmse 0.9883460308402177
+Epoch 31 train rmse 0.9424628109437201 val rmse 0.9894342602254552
+Epoch 32 train rmse 0.9404245850237167 val rmse 0.9893435446119218
+Epoch 33 train rmse 0.9384816533543672 val rmse 0.9895508790683594
+Epoch 34 train rmse 0.936539940411191 val rmse 0.9900639960327066
+Epoch 35 train rmse 0.9348891386955164 val rmse 0.9904124588241653
+Epoch 36 train rmse 0.9326259067079559 val rmse 0.9908381093998119
+Epoch 37 train rmse 0.9307162442173417 val rmse 0.9928636797815902
+Epoch 38 train rmse 0.9286158636773029 val rmse 0.9928663897769106
+Epoch 39 train rmse 0.9266852736496725 val rmse 0.9939919160963012
+Epoch 40 train rmse 0.9244169285841188 val rmse 0.9935185880888537
+0.9935185862603427
+----------------> hidden_size 104
+Creating graph
+Epoch 1 train rmse 1.036729045762372 val rmse 1.0046232524585417
+Epoch 2 train rmse 0.9987612582475944 val rmse 0.9983065945240512
+Epoch 3 train rmse 0.9931470768675302 val rmse 0.9967884994818995
+Epoch 4 train rmse 0.9904882960323488 val rmse 0.9959149602539051
+Epoch 5 train rmse 0.9884130368677897 val rmse 0.9954784969035343
+Epoch 6 train rmse 0.9864025935799401 val rmse 0.9938645044121309
+Epoch 7 train rmse 0.9844034633520874 val rmse 0.9926164508277624
+Epoch 8 train rmse 0.9816789339868434 val rmse 0.9914355749610748
+Epoch 9 train rmse 0.9789448899911971 val rmse 0.9901857351504464
+Epoch 10 train rmse 0.9760619370279574 val rmse 0.988758942326425
+Epoch 11 train rmse 0.9735468914429797 val rmse 0.9880514427477035
+Epoch 12 train rmse 0.9715122323439741 val rmse 0.9881582353900422
+Epoch 13 train rmse 0.969540166901838 val rmse 0.9870962597940045
+Epoch 14 train rmse 0.9680126014291801 val rmse 0.9872166458465312
+Epoch 15 train rmse 0.966693351707486 val rmse 0.9868859440769948
+Epoch 16 train rmse 0.9653015207871033 val rmse 0.9869283169705966
+Epoch 17 train rmse 0.9641208125568111 val rmse 0.987747880361987
+Epoch 18 train rmse 0.9629430849093343 val rmse 0.9865945598710815
+Epoch 19 train rmse 0.961645842513289 val rmse 0.9865550011270807
+Epoch 20 train rmse 0.9603492051895416 val rmse 0.9864596718817988
+Epoch 21 train rmse 0.9588803018302251 val rmse 0.9866109245282008
+Epoch 22 train rmse 0.9572843964978267 val rmse 0.9866439256981553
+Epoch 23 train rmse 0.9558190163010181 val rmse 0.9867071931161834
+Epoch 24 train rmse 0.9540845321367107 val rmse 0.9875361465825949
+Epoch 25 train rmse 0.9522215022872745 val rmse 0.9889733677437113
+Epoch 26 train rmse 0.9503798214870605 val rmse 0.9875228997727908
+Epoch 27 train rmse 0.9485601419361119 val rmse 0.9879671820667579
+Epoch 28 train rmse 0.946770258102064 val rmse 0.9876491162471241
+Epoch 29 train rmse 0.9448023362697486 val rmse 0.9890737369439409
+Epoch 30 train rmse 0.9427715255605909 val rmse 0.9892666780130386
+Epoch 31 train rmse 0.9407660182053502 val rmse 0.9891399022231332
+Epoch 32 train rmse 0.9388248732556067 val rmse 0.9898079197698586
+Epoch 33 train rmse 0.936964904756988 val rmse 0.9899606151290453
+Epoch 34 train rmse 0.9350357521675959 val rmse 0.9898356422678108
+Epoch 35 train rmse 0.9327616140723378 val rmse 0.9907531285173815
+Epoch 36 train rmse 0.9304963191114605 val rmse 0.9913511157621887
+Epoch 37 train rmse 0.9285185864219148 val rmse 0.9917287476945034
+Epoch 38 train rmse 0.9264264984036371 val rmse 0.9933265216631568
+Epoch 39 train rmse 0.9244688153213587 val rmse 0.993422777790506
+Epoch 40 train rmse 0.9225563407620272 val rmse 0.9944015376157348
+0.9944015382206447
+----------------> hidden_size 112
+Creating graph
+Epoch 1 train rmse 1.0366451846349902 val rmse 1.0044775964443287
+Epoch 2 train rmse 0.9985457926638023 val rmse 0.9985490978263466
+Epoch 3 train rmse 0.9932115815525758 val rmse 0.9967994550321285
+Epoch 4 train rmse 0.9903018937520094 val rmse 0.9956939008430532
+Epoch 5 train rmse 0.9882841453454656 val rmse 0.9948982191296551
+Epoch 6 train rmse 0.9864330851122539 val rmse 0.9939002310737978
+Epoch 7 train rmse 0.9844905188954328 val rmse 0.9928402099239135
+Epoch 8 train rmse 0.9820395860947075 val rmse 0.9914346679299291
+Epoch 9 train rmse 0.9794366401439297 val rmse 0.9902962079809118
+Epoch 10 train rmse 0.9764130643910927 val rmse 0.9890002531293517
+Epoch 11 train rmse 0.9735633311156962 val rmse 0.9879589199168326
+Epoch 12 train rmse 0.9713286959181469 val rmse 0.9874734913756956
+Epoch 13 train rmse 0.9694049889346863 val rmse 0.9874617254354242
+Epoch 14 train rmse 0.9676327811687035 val rmse 0.9872365957823231
+Epoch 15 train rmse 0.9663529500545855 val rmse 0.9867254758769765
+Epoch 16 train rmse 0.9650348445334653 val rmse 0.9871489514805231
+Epoch 17 train rmse 0.963935002317886 val rmse 0.9862181595743345
+Epoch 18 train rmse 0.9624199824261679 val rmse 0.9869887387063997
+Epoch 19 train rmse 0.961206745322121 val rmse 0.9866563685537381
+Epoch 20 train rmse 0.9598137883619265 val rmse 0.9859071412876044
+Epoch 21 train rmse 0.9584205073826774 val rmse 0.9865428876570237
+Epoch 22 train rmse 0.9564980174660206 val rmse 0.9872366803456856
+Epoch 23 train rmse 0.9549642000428691 val rmse 0.9861114287691641
+Epoch 24 train rmse 0.9531754557050977 val rmse 0.9863700329592926
+Epoch 25 train rmse 0.9512689196445623 val rmse 0.987698882766459
+Epoch 26 train rmse 0.9493225395837411 val rmse 0.987441867656326
+Epoch 27 train rmse 0.9475816739198533 val rmse 0.9890277272362985
+Epoch 28 train rmse 0.9455848463628064 val rmse 0.9881709500608113
+Epoch 29 train rmse 0.9435747213328192 val rmse 0.9877571952410811
+Epoch 30 train rmse 0.9415218616313313 val rmse 0.9887193429239475
+Epoch 31 train rmse 0.9391454675875175 val rmse 0.9884127464738297
+Epoch 32 train rmse 0.9373111356782827 val rmse 0.9892154069679194
+Epoch 33 train rmse 0.9348260324566807 val rmse 0.9906098979408744
+Epoch 34 train rmse 0.9326489127139803 val rmse 0.99114532376268
+Epoch 35 train rmse 0.9302295661745646 val rmse 0.9921181797016698
+Epoch 36 train rmse 0.9279908694726154 val rmse 0.9920710528923914
+Epoch 37 train rmse 0.9258314198178063 val rmse 0.9927804746968562
+Epoch 38 train rmse 0.9231586886750455 val rmse 0.9938222607129007
+Epoch 39 train rmse 0.9207870029364862 val rmse 0.9945014183310759
+Epoch 40 train rmse 0.91841432703119 val rmse 0.9950258529938828
+0.9950258526666125
+----------------> hidden_size 120
+Creating graph
+Epoch 1 train rmse 1.0358013748898305 val rmse 1.004119349965534
+Epoch 2 train rmse 0.9987136513479614 val rmse 0.9981816214567473
+Epoch 3 train rmse 0.9932271935134109 val rmse 0.9968148912484331
+Epoch 4 train rmse 0.9904776921606441 val rmse 0.9958064505561203
+Epoch 5 train rmse 0.9883510059672184 val rmse 0.9949192928515679
+Epoch 6 train rmse 0.9863688399362097 val rmse 0.9938258937000936
+Epoch 7 train rmse 0.9840465470383546 val rmse 0.9929816632690625
+Epoch 8 train rmse 0.9812319747592073 val rmse 0.9913302121847802
+Epoch 9 train rmse 0.9783358181640766 val rmse 0.9898320334235938
+Epoch 10 train rmse 0.9752469475654051 val rmse 0.9888363621072006
+Epoch 11 train rmse 0.9727102108678713 val rmse 0.9879867927882158
+Epoch 12 train rmse 0.9704927006128029 val rmse 0.9875998829556268
+Epoch 13 train rmse 0.9684662391779707 val rmse 0.9874194482763227
+Epoch 14 train rmse 0.9670143566775312 val rmse 0.9866857105269331
+Epoch 15 train rmse 0.965487402641539 val rmse 0.9868569155793118
+Epoch 16 train rmse 0.9641397868602111 val rmse 0.9871034881185397
+Epoch 17 train rmse 0.9625623037375662 val rmse 0.9859561235893112
+Epoch 18 train rmse 0.9612994339594095 val rmse 0.986776229186807
+Epoch 19 train rmse 0.9597960068618939 val rmse 0.9868304157491545
+Epoch 20 train rmse 0.9582394568524097 val rmse 0.9868440083820658
+Epoch 21 train rmse 0.9564116812325576 val rmse 0.9866571252003081
+Epoch 22 train rmse 0.9545038476140547 val rmse 0.9872407889348918
+Epoch 23 train rmse 0.9528154216853425 val rmse 0.9866647644248221
+Epoch 24 train rmse 0.9507899409751175 val rmse 0.9872977155911717
+Epoch 25 train rmse 0.9486436821686084 val rmse 0.9880387106347988
+Epoch 26 train rmse 0.9467194067325783 val rmse 0.9876374950487106
+Epoch 27 train rmse 0.9446171418262908 val rmse 0.9882035667848867
+Epoch 28 train rmse 0.9420473541419753 val rmse 0.9890435039050267
+Epoch 29 train rmse 0.9399615289954666 val rmse 0.9891417392730669
+Epoch 30 train rmse 0.9375742201413748 val rmse 0.9902641939319604
+Epoch 31 train rmse 0.935211284464499 val rmse 0.9923496835608951
+Epoch 32 train rmse 0.9327809865051905 val rmse 0.9910860768968947
+Epoch 33 train rmse 0.9304395773872146 val rmse 0.9915568939689134
+Epoch 34 train rmse 0.9279484622137041 val rmse 0.9941397248230893
+Epoch 35 train rmse 0.9256225329863065 val rmse 0.9937660027582399
+Epoch 36 train rmse 0.9230944334478909 val rmse 0.9950767888954141
+Epoch 37 train rmse 0.9204138195677123 val rmse 0.9956596454107909
+Epoch 38 train rmse 0.9179760375435627 val rmse 0.9960771515647888
+Epoch 39 train rmse 0.9151814248968871 val rmse 0.9969787999835898
+Epoch 40 train rmse 0.912913151248547 val rmse 0.9988479126715403
+0.9988479106232339
+----------------> hidden_size 128
+Creating graph
+Epoch 1 train rmse 1.035466706539282 val rmse 1.0041670740231081
+Epoch 2 train rmse 0.9984265704026855 val rmse 0.9983924842826408
+Epoch 3 train rmse 0.9931405885691486 val rmse 0.9963892937014135
+Epoch 4 train rmse 0.9902965005249694 val rmse 0.9954455475988423
+Epoch 5 train rmse 0.9880920272529444 val rmse 0.9947242332937125
+Epoch 6 train rmse 0.9861601400341038 val rmse 0.9936102540887213
+Epoch 7 train rmse 0.9837819346624652 val rmse 0.9925649053382501
+Epoch 8 train rmse 0.9810880446013686 val rmse 0.991155647862021
+Epoch 9 train rmse 0.9781132192663035 val rmse 0.9906237702512256
+Epoch 10 train rmse 0.9751950496334881 val rmse 0.9892546020053495
+Epoch 11 train rmse 0.9723919678523341 val rmse 0.9878327001143059
+Epoch 12 train rmse 0.970206303825815 val rmse 0.9874918802538457
+Epoch 13 train rmse 0.9682872078860904 val rmse 0.9870950179136032
+Epoch 14 train rmse 0.966626830085632 val rmse 0.9872766473744017
+Epoch 15 train rmse 0.9651093792913442 val rmse 0.9871028462581979
+Epoch 16 train rmse 0.9636259481320429 val rmse 0.9874210993068022
+Epoch 17 train rmse 0.9622713126945969 val rmse 0.9866398888390515
+Epoch 18 train rmse 0.9609271015002013 val rmse 0.9868369995553302
+Epoch 19 train rmse 0.9591546837337019 val rmse 0.9864576866884965
+Epoch 20 train rmse 0.9576554556939726 val rmse 0.9879245967192818
+Epoch 21 train rmse 0.9560078073074373 val rmse 0.9866702154498626
+Epoch 22 train rmse 0.9543293062506069 val rmse 0.9866074995591596
+Epoch 23 train rmse 0.9523372930940005 val rmse 0.9871878008031961
+Epoch 24 train rmse 0.9505577022598788 val rmse 0.9870154271400925
+Epoch 25 train rmse 0.948592949897213 val rmse 0.988363302354903
+Epoch 26 train rmse 0.9464680317874414 val rmse 0.9874615579331221
+Epoch 27 train rmse 0.9441960476654495 val rmse 0.987753056763517
+Epoch 28 train rmse 0.9416743321722912 val rmse 0.9881244591029599
+Epoch 29 train rmse 0.9390030950325287 val rmse 0.9890938869126253
+Epoch 30 train rmse 0.9368152430870356 val rmse 0.9901145869906925
+Epoch 31 train rmse 0.933982589098294 val rmse 0.9902785460427775
+Epoch 32 train rmse 0.9316480223195261 val rmse 0.9917227810556128
+Epoch 33 train rmse 0.9288559703834192 val rmse 0.9927018583817647
+Epoch 34 train rmse 0.9264552625122537 val rmse 0.9939891238225393
+Epoch 35 train rmse 0.9236564235140443 val rmse 0.9948503260665704
+Epoch 36 train rmse 0.9209536500978679 val rmse 0.9953604950940109
+Epoch 37 train rmse 0.9183390216740529 val rmse 0.9966735780220697
+Epoch 38 train rmse 0.9155935477304697 val rmse 0.9980036866059494
+Epoch 39 train rmse 0.9129859730648674 val rmse 0.9977991962096752
+Epoch 40 train rmse 0.9099360062408907 val rmse 1.0004212453923984
+1.000421246590131
+----------------> hidden_size 256
+Creating graph
+Epoch 1 train rmse 1.0337917681492959 val rmse 1.0039687598962463
+Epoch 2 train rmse 0.9981370324105403 val rmse 0.9981074244699567
+Epoch 3 train rmse 0.9928136206771773 val rmse 0.9962592069260124
+Epoch 4 train rmse 0.989823677210751 val rmse 0.9952144479905483
+Epoch 5 train rmse 0.9873370700079767 val rmse 0.9940635775167553
+Epoch 6 train rmse 0.9849035834904892 val rmse 0.9931985911289286
+Epoch 7 train rmse 0.9817662583132638 val rmse 0.991147223346191
+Epoch 8 train rmse 0.978184084660278 val rmse 0.9899154530027159
+Epoch 9 train rmse 0.9746409324445752 val rmse 0.9882267013077153
+Epoch 10 train rmse 0.9716413274637721 val rmse 0.9881709150324377
+Epoch 11 train rmse 0.9690854658683359 val rmse 0.9873305809191214
+Epoch 12 train rmse 0.9668870005484091 val rmse 0.987850554468676
+Epoch 13 train rmse 0.9651104775220476 val rmse 0.9867153141533456
+Epoch 14 train rmse 0.963127967711511 val rmse 0.9875991651966529
+Epoch 15 train rmse 0.9611785523794397 val rmse 0.9880318561548666
+Epoch 16 train rmse 0.9590056222240205 val rmse 0.9875443163589085
+Epoch 17 train rmse 0.9568453865905504 val rmse 0.9877818113892408
+Epoch 18 train rmse 0.9542502557794769 val rmse 0.986847864214187
+Epoch 19 train rmse 0.9516183643861296 val rmse 0.9875835989337131
+Epoch 20 train rmse 0.9484572360913195 val rmse 0.9885142767826621
+Epoch 21 train rmse 0.9452856649879086 val rmse 0.9905319437770321
+Epoch 22 train rmse 0.9418082492752685 val rmse 0.9907956064077851
+Epoch 23 train rmse 0.9380859487884131 val rmse 0.991932230307816
+Epoch 24 train rmse 0.9341236957955098 val rmse 0.9934491812408738
+Epoch 25 train rmse 0.9301053776436373 val rmse 0.9934702687413687
+Epoch 26 train rmse 0.925998244304097 val rmse 0.9945643673633628
+Epoch 27 train rmse 0.9215109852850738 val rmse 0.9966207418756465
+Epoch 28 train rmse 0.916797427082267 val rmse 0.996682133427425
+Epoch 29 train rmse 0.9125353560596026 val rmse 0.9993136624188727
+Epoch 30 train rmse 0.9075493763020686 val rmse 1.0020420719830736
+Epoch 31 train rmse 0.9023158983361659 val rmse 1.0047272804082334
+Epoch 32 train rmse 0.8974928579291666 val rmse 1.006875268981612
+Epoch 33 train rmse 0.8924386940040422 val rmse 1.0082357811142564
+Epoch 34 train rmse 0.8870568954691707 val rmse 1.011129551961416
+Epoch 35 train rmse 0.8820370732362106 val rmse 1.0107476028737525
+Epoch 36 train rmse 0.8766455730638035 val rmse 1.0160901585520332
+Epoch 37 train rmse 0.871946860004803 val rmse 1.0175743356094116
+Epoch 38 train rmse 0.8661726119213893 val rmse 1.023583386390974
+Epoch 39 train rmse 0.8617743298417093 val rmse 1.0224475939936595
+Epoch 40 train rmse 0.8569307937858891 val rmse 1.0250395494610702
+1.0250395499041978

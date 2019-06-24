@@ -39,6 +39,10 @@ class IterativeSVD:
             Sk[singular_values:, singular_values:] = 0
 
             self.data_iterative_svd = U.dot(Sk).dot(Vt)
+            
+            # fill in true values
+            for (user, movie, rating) in zip(users_train, movies_train, ratings_train):
+                self.data_iterative_svd[user][movie] = rating
 
             # fill in true values
             for (user, movie, rating) in zip(users_train, movies_train, ratings_train):
@@ -56,3 +60,4 @@ class IterativeSVD:
             predictions[i] = self.data_iterative_svd[user][movie]
 
         return predictions
+
