@@ -16,7 +16,8 @@ class SVDplus:
                  number_of_movies,
                  hidden_size=12,
                  regularization_matrix=0.08,
-                 regularization_vector=0.04):
+                 regularization_vector=0.04,
+                 verbose=0):
 
         self.number_of_users = number_of_users
         self.number_of_movies = number_of_movies
@@ -33,6 +34,8 @@ class SVDplus:
 
         self.biasU = np.zeros(self.number_of_users)
         self.biasV = np.zeros(self.number_of_movies)
+
+        self.verbose = verbose
 
     def fit_data(self,
                  users_train,
@@ -92,10 +95,13 @@ class SVDplus:
                 self.biasU[user] = new_biasU_d
                 self.biasV[movie] = new_biasV_n
 
-            if iteration % 1000000 == 0 and validation and verbose:
-                predictions = self.predict(users_validation, movies_validation)
-                print('Validation error at iteration', iteration, 'is',
-                      root_mean_square_error(ratings_validation, predictions))
+            if self.verbose > 0:
+                if iteration % 1000000 == 0 and validation and verbose:
+                    predictions = self.predict(users_validation,
+                                               movies_validation)
+                    print('Validation error at iteration', iteration, 'is',
+                          root_mean_square_error(ratings_validation,
+                                                 predictions))
 
     def predict(self, users_test, movies_test):
 
