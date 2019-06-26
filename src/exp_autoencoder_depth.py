@@ -96,10 +96,10 @@ for i, (user, movie) in enumerate(zip(users_train, movies_train)):
 
 for layers in [[128], [128,128], [128, 128, 128], [64], [64,64], [64, 64, 64],
         [32], [32,32], [32,32,32], [16], [16,16], [16,16,16], [8], [8,8], [8,8,8]]:
-    print('layers:', layers)
     model3 = Autoencoder(number_of_users, number_of_movies, layers=layers)
     model3.train(data_zeros, data_mask, users_validation=users_test, movies_validation=movies_test,
                  ratings_validations=ratings_test, n_epochs=200, verbose=False)
 
     preds = model3.predict(data_zeros, users_test, movies_test)
-    print(root_mean_square_error(ratings_test, preds))
+    score = root_mean_square_error(ratings_test, preds))
+    print("layers: {} score: {}".format(layers, score))

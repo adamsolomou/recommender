@@ -1,0 +1,68 @@
+Sender: LSF System <lsfadmin@lo-s4-032>
+Subject: Job 2282185: <python exp_autoencoder_depth.py> in cluster <leonhard> Done
+
+Job <python exp_autoencoder_depth.py> was submitted from host <lo-login-01> by user <saioanni> in cluster <leonhard> at Mon Jun 24 13:36:58 2019
+Job was executed on host(s) <lo-s4-032>, in queue <gpu.24h>, as user <saioanni> in cluster <leonhard> at Mon Jun 24 13:37:23 2019
+</cluster/home/saioanni> was used as the home directory.
+</cluster/home/saioanni/CIL/recommender/src> was used as the working directory.
+Started at Mon Jun 24 13:37:23 2019
+Terminated at Mon Jun 24 15:20:18 2019
+Results reported at Mon Jun 24 15:20:18 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python exp_autoencoder_depth.py
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   10790.27 sec.
+    Max Memory :                                 989 MB
+    Average Memory :                             889.51 MB
+    Total Requested Memory :                     64192.00 MB
+    Delta Memory :                               63203.00 MB
+    Max Swap :                                   -
+    Max Processes :                              3
+    Max Threads :                                29
+    Run time :                                   6199 sec.
+    Turnaround time :                            6200 sec.
+
+The output (if any) follows:
+
+2019-06-24 13:37:29.267608: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+Using TensorFlow backend.
+Found GPU at: 
+layers: [128]
+1.1587497876264006
+layers: [128, 128]
+1.072690884774719
+layers: [128, 128, 128]
+1.0431000220095556
+layers: [64]
+1.0798179315933891
+layers: [64, 64]
+1.024234781150386
+layers: [64, 64, 64]
+1.0058182132267388
+layers: [32]
+1.0284017673969366
+layers: [32, 32]
+1.0046652556483278
+layers: [32, 32, 32]
+0.9893378135519829
+layers: [16]
+0.9988817110589302
+layers: [16, 16]
+0.9899702196927423
+layers: [16, 16, 16]
+0.9869052061783409
+layers: [8]
+0.9916638023956681
+layers: [8, 8]
+0.9888987835235644
+layers: [8, 8, 8]
+0.9889789868932185
