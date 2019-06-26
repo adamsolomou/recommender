@@ -1,10 +1,21 @@
+## Number of iterations for the neural network. Left at 15 for debugging purposes,
+## change to 150000000 for actual experiment.
 #num_iters=150000000
 num_iters=15
+
+# The directory where the output will be stores. If it doesn't exist you need to create it.
 dir=grid2_exp_out
+
+# How many points along the lambda1 axis each process will calculate
 point_num=5
+
+# Leave at 0. I used it to let my pc cooldown when running experiments on it.
 sleep_time=0
+
+# The ratio of the training set to the whole data set.
 train_size=0.88
 
+# Starting and ending points for each process on the lambda1 axis.
 begin[0]="0.07"
 begin[1]="0.075"
 begin[2]="0.08"
