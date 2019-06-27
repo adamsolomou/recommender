@@ -1,7 +1,5 @@
 import tensorflow as tf
-# TODO change that before submit
-# from tqdm import tqdm
-from tqdm import tqdm_notebook as tqdm
+from tqdm import tqdm
 import numpy as np
 from sklearn.utils import shuffle
 import math
@@ -16,16 +14,16 @@ class Embeddings:
                  number_of_users,
                  number_of_movies,
                  embeddings_size=96,
-                 dropout_embeddings=0.25,
-                 mlp_layers=[4096],
-                 dropout_mlp=0.1):
+                 dropout_embeddings=0.2,
+                 mlp_layers=[1024],
+                 dropout=0.1):
 
         self.number_of_users = number_of_users
         self.number_of_movies = number_of_movies
         self.embeddings_size = embeddings_size
         self.dropout_embeddings = dropout_embeddings
         self.mlp_layers = mlp_layers
-        self.dropout_mlp = dropout_mlp
+        self.dropout = dropout
 
     def create_graph(self,
                      users,
@@ -35,41 +33,41 @@ class Embeddings:
 
         with tf.variable_scope("embeddings_model", reuse=reuse):
             with tf.name_scope("embeddings"):
-                user_embeddings_layers = tf.get_variable('user_embedding', [self.number_of_users, self.embeddings_size])
+                user_embeddings_layers = tf.get_variable('user_embedding',
+                                                         [self.number_of_users, self.embeddings_size])
 
                 user_embeddings = tf.nn.embedding_lookup(user_embeddings_layers, users, name='users_lookup')
                 user_embeddings = tf.layers.dropout(user_embeddings, rate=self.dropout_embeddings, training=training)
 
-#                 user_embeddings = tf.layers.dense(user_embeddings, 256, use_bias=True, name='dense_layers_users_1',
-#                                                   activation=tf.nn.relu)
-#                 user_embeddings = tf.layers.dropout(user_embeddings, rate=0.1, training=training)
-#                 user_embeddings = tf.layers.dense(user_embeddings, 96, use_bias=True,
-#                                                   name='dense_layers_users_2', activation=tf.nn.relu)
-#                 user_embeddings = tf.layers.dropout(user_embeddings, rate=0.1, training=training)
+                user_embeddings = tf.layers.dense(user_embeddings, 256, use_bias=True, name='dense_layers_users_1',
+                                                  activation=tf.nn.relu)
+                user_embeddings = tf.layers.dropout(user_embeddings, rate=self.dropout, training=training)
+                user_embeddings = tf.layers.dense(user_embeddings, self.embeddings_size, use_bias=True,
+                                                  name='dense_layers_users_2', activation=tf.nn.relu)
+                user_embeddings = tf.layers.dropout(user_embeddings, rate=self.dropout, training=training)
 
-                movie_embeddings_layers = tf.get_variable('movie_embedding', [self.number_of_movies, self.embeddings_size])
+                movie_embeddings_layers = tf.get_variable('movie_embedding',
+                                                          [self.number_of_movies, self.embeddings_size])
 
                 movie_embeddings = tf.nn.embedding_lookup(movie_embeddings_layers, movies, name='users_lookup')
                 movie_embeddings = tf.layers.dropout(movie_embeddings, rate=self.dropout_embeddings, training=training)
 
-#                 movie_embeddings = tf.layers.dense(movie_embeddings, 128, use_bias=True, name='dense_layers_movies_1',
-#                                                    activation=tf.nn.relu)
-#                 movie_embeddings = tf.layers.dropout(movie_embeddings, rate=0.1, training=training)
-#                 movie_embeddings = tf.layers.dense(movie_embeddings, 96, use_bias=True,
-#                                                    name='dense_layers_movies_2', activation=tf.nn.relu)
-#                 movie_embeddings = tf.layers.dropout(movie_embeddings, rate=0.1, training=training)
+                movie_embeddings = tf.layers.dense(movie_embeddings, 256, use_bias=True, name='dense_layers_movies_1',
+                                                   activation=tf.nn.relu)
+                movie_embeddings = tf.layers.dropout(movie_embeddings, rate=self.dropout, training=training)
+                movie_embeddings = tf.layers.dense(movie_embeddings, self.embeddings_size, use_bias=True,
+                                                   name='dense_layers_movies_2', activation=tf.nn.relu)
+                movie_embeddings = tf.layers.dropout(movie_embeddings, rate=self.dropout, training=training)
 
             with tf.name_scope("concatenate"):
-                concatenated = tf.concat([user_embeddings, movie_embeddings], axis=1)
-
                 multiplied = user_embeddings * movie_embeddings
 
-                merged = tf.concat([concatenated, multiplied], axis=1)
+                merged = tf.concat([user_embeddings, movie_embeddings, multiplied], axis=1)
 
             with tf.name_scope("feed_forward"):
                 for layer in self.mlp_layers:
                     merged = tf.layers.dense(merged, layer, use_bias=True, name='dense_layers_1', activation=tf.nn.relu)
-                    merged = tf.layers.dropout(merged, rate=self.dropout_mlp, training=training)
+                    merged = tf.layers.dropout(merged, rate=self.dropout, training=training)
 
                 rating_logits = tf.layers.dense(merged, 5, use_bias=True, name='dense_output')
 
@@ -112,14 +110,11 @@ class Embeddings:
                  ratings_validation=None,
                  epochs=40,
                  verbose=True,
-                 decay=1,
+                 decay=0.97,
                  decay_steps=2000,
                  learning_rate=1.0,
                  log_path=DEFAULT_LOG_PATH,
                  batch_size=512):
-
-#         if log_path is None:
-#             log_path = DEFAULT_LOG_PATH
 
         if os.path.exists(log_path) and os.path.isdir(log_path):
             shutil.rmtree(log_path, ignore_errors=True)
@@ -203,8 +198,8 @@ class Embeddings:
                                                                     ratings_train_placeholder: ratings_shuf
                                                                     })
                     try:
-#                        pbar = tqdm(total=len(users_train))
-#                        pbar.set_description('[Epoch:{:4d}]'.format(epoch + 1))
+                        pbar = tqdm(total=len(users_train))
+                        pbar.set_description('[Epoch:{:4d}]'.format(epoch + 1))
                         while True:
                             error, summary, _, step = sess.run([square_error_train, summaries_merged,
                                                                train_op, global_step])
@@ -212,7 +207,7 @@ class Embeddings:
                             total_square_error_train += error
                             writer.add_summary(summary, step)
 
-#                            pbar.update(batch_size)
+                            pbar.update(batch_size)
 
                     except tf.errors.OutOfRangeError:
                         pass
@@ -236,14 +231,13 @@ class Embeddings:
                             pass
 
                         validation_error = math.sqrt(total_square_error_validation / len(users_validation))
-                        print(epoch + 1, train_error, validation_error)
-#                        pbar.set_postfix_str("Train RMSE: {:3.4f}; Valid RMSE: {:3.4f}"
-#                                             .format(train_error, validation_error))
+                        pbar.set_postfix_str("Train RMSE: {:3.4f}; Valid RMSE: {:3.4f}"
+                                             .format(train_error, validation_error))
 
                     else:
                         pbar.set_postfix_str("Train RMSE: {:3.4f};".format(train_error))
 
-#                    pbar.close()
+                    pbar.close()
 
     def predict(self,
                 users_test,
