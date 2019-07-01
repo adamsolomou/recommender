@@ -174,9 +174,9 @@ class Autoencoder:
     def fit(self,
             data,
             data_mask,
-            users_validation=None,
-            movies_validation=None,
-            ratings_validations=None,
+            valid_users=None,
+            valid_movies=None,
+            valid_ratings=None,
             n_epochs=350,
             decay_steps=None,
             learning_rate=None,
@@ -198,9 +198,9 @@ class Autoencoder:
             log_path = DEFAULT_LOG_PATH
 
         validation = False
-        if users_validation is not None and movies_validation is not None and ratings_validations is not None:
+        if valid_users is not None and valid_movies is not None and valid_ratings is not None:
 
-            assert len(users_validation) == len(movies_validation) == len(ratings_validations), \
+            assert len(valid_users) == len(valid_movies) == len(valid_ratings), \
                 "Invalid validation data provided"
 
             validation = True
@@ -254,9 +254,9 @@ class Autoencoder:
                     if epoch % 10 == 0:
                         if verbose and validation:
                             predictions_validation = self.predict_with_session(sess, data,
-                                                                               users_validation, movies_validation)
+                                                                               valid_users, valid_movies)
 
                             print('Autoencoder: At epoch', epoch, 'validation error:',
-                                  root_mean_square_error(ratings_validations, predictions_validation))
+                                  root_mean_square_error(valid_ratings, predictions_validation))
 
                         saver.save(sess, os.path.join(log_path, "model"), global_step=epoch)

@@ -1,8 +1,10 @@
 import numpy as np
 import pandas as pd
-import os
 import tensorflow as tf
 from utils import root_mean_square_error
+from reader import fetch_data
+from sklearn.linear_model import LinearRegression
+
 
 # models
 from bias_sgd import BiasSGD
@@ -18,122 +20,79 @@ if device_name != '/device:GPU:0':
 else:
     print('Found GPU at: {}'.format(device_name))
 
+dataloader = fetch_data(train_size=0.88)
+number_of_users, number_of_movies = 10000, 1000
 
-DATA_DIR = '/cluster/home/sanagnos/CIL/data'
-RANDOM_SEED = 42
+# Training
+train_IDs, train_users, train_movies, train_ratings, A_train = dataloader['train']
 
-number_of_users, number_of_movies = (10000, 1000)
-testing=True
-train_size = 0.88
+# Validation
+valid_IDs, valid_users, valid_movies, valid_ratings, A_valid = dataloader['valid']
 
+# Testing
+test_IDs, test_users, test_movies = dataloader['test']
 
-data_train = pd.read_csv(os.path.join(DATA_DIR, 'data_train.csv'))
+known_train = ~np.isnan(A_train)
+known_validation = ~np.isnan(A_valid)
 
-if not testing:
-    submission = pd.read_csv(os.path.join(DATA_DIR, 'sampleSubmission.csv'))
+# Fill-in missing entries
+X_train = pd.DataFrame(A_train, copy=True)
 
-# get average rating
-average_rating = np.mean(data_train['Prediction'].values)
+movie_avg_ratings = X_train.mean(axis=0, skipna=True)
 
-if testing:
-    # Split the dataset into train and test
-    np.random.seed(RANDOM_SEED)
+A_train_zeros = X_train.fillna(0.0).values
+A_train_average = X_train.fillna(movie_avg_ratings, axis=0).values
+known_train_int = known_train.astype(int)
 
-    msk = np.random.rand(len(data_train)) < train_size
-    train = data_train[msk]
-    test = data_train[~msk]
-else:
-    train = data_train
+# iterative SVD model
+model = IterativeSVD(shrinkage=38)
+model.fit(A_train_average, known_train, A_valid=A_valid, valid_mask=known_validation, verbose=True)
 
-users_train = list()
-movies_train = list()
-for user, movie in train.Id.str.extract('r(\d+)_c(\d+)').values:
-    users_train.append(int(user) - 1)
-    movies_train.append(int(movie) - 1)
+preds_iSVD_val = model.predict(valid_users, valid_movies)
+preds_iSVD_test = model.predict(test_users, test_movies)
 
-ratings_train = train['Prediction'].values
+# biased SGD model
+model = BiasSGD(number_of_users=10000, number_of_movies=1000,
+                hidden_size=12, regularization_matrix=0.08, regularization_vector=0.04)
 
-if testing:
-    users_test = list()
-    movies_test = list()
-    for user, movie in test.Id.str.extract('r(\d+)_c(\d+)').values:
-        users_test.append(int(user) - 1)
-        movies_test.append(int(movie) - 1)
+model.fit(train_users, train_movies, train_ratings,
+          valid_users=valid_users, valid_movies=valid_movies, valid_ratings=valid_ratings,
+          num_epochs=50, decay=1.5, lr=0.05, decay_every=5, verbose=True)
 
-    users_test = np.array(users_test)
-    movies_test = np.array(movies_test)
-    ratings_test = test['Prediction'].values
-else:
-    users_test = list()
-    movies_test = list()
-    for user, movie in submission.Id.str.extract('r(\d+)_c(\d+)').values:
-        users_test.append(int(user) - 1)
-        movies_test.append(int(movie) - 1)
+preds_bSGD_val = model.predict(valid_users, valid_movies)
+preds_bSGD_test = model.predict(test_users, test_movies)
 
-users_train = np.array(users_train)
-movies_train = np.array(movies_train)
+# autoencoder model
+model = Autoencoder(number_of_users, number_of_movies)
+model.fit(A_train_zeros, known_train_int, valid_users=valid_users, valid_movies=valid_movies,
+             valid_ratings=valid_ratings)
 
+preds = model.predict(A_train_zeros, test_users, test_movies)
 
-# calculate average per movie
-movie_ratings = {}
+preds_autoencoder_val = model.predict(A_train_zeros, valid_users, valid_movies)
+preds_autoencoder_test = model.predict(A_train_zeros, test_users, test_movies)
 
-for i, (user, movie) in enumerate(zip(users_train, movies_train)):
-    if movie in movie_ratings:
-        movie_ratings[movie].append(ratings_train[i])
-    else:
-        movie_ratings[movie] = [ratings_train[i]]
+# embeddings model
+model = Embeddings(number_of_users, number_of_movies)
+model.fit(train_users, train_movies, train_ratings,
+          valid_users=valid_users, valid_movies=valid_movies,
+          valid_ratings=valid_ratings, epochs=5)
 
-movie_averages = np.zeros(number_of_movies)
-for movie, ratings in movie_ratings.items():
-    movie_averages[movie] = np.mean(ratings)
+preds_embeddings_val = model.predict(valid_users, valid_movies)
+preds_embeddings_test = model.predict(test_users, test_movies)
 
+# create regressor for combined predictions
+valid_predictions = np.concatenate([preds_iSVD_val, preds_bSGD_val, preds_autoencoder_val, preds_autoencoder_val])
+valid_predictions = valid_predictions.reshape(4, valid_users.shape[0]).T
 
-data_zeros = np.full((number_of_users, number_of_movies), 0)
-data_average = np.tile(movie_averages, number_of_users).reshape(-1, number_of_movies)
+test_predictions = np.concatenate([preds_iSVD_test, preds_bSGD_test, preds_autoencoder_test, preds_autoencoder_test])
+test_predictions = test_predictions.reshape(4, test_users.shape[0]).T
 
-data_mask = np.full((number_of_users, number_of_movies), 0)
+regressor = LinearRegression(fit_intercept=True)
+regressor.fit(valid_predictions, valid_ratings)
 
-for i, (user, movie) in enumerate(zip(users_train, movies_train)):
-    data_zeros[user][movie] = ratings_train[i]
-    data_average[user][movie] = ratings_train[i]
-    data_mask[user][movie] = 1
+regressor_predictions = regressor.predict(test_predictions)
 
-
-
-
-###
-model1 = IterativeSVD(number_of_users, number_of_movies)
-model1.fit_data(data_average, users_train, movies_train, ratings_train)
-
-preds = model1.predict(users_test, movies_test)
-print(root_mean_square_error(ratings_test, preds))
-###
-
-###
-model2 = SVDplus(number_of_users, number_of_movies)
-model2.fit_data(users_train, movies_train, ratings_train,
-                users_validation=users_test, movies_validation=movies_test,
-                ratings_validation=ratings_test)
-
-preds = model2.predict(users_test, movies_test)
-print(root_mean_square_error(ratings_test, preds))
-###
-
-###
-model3 = Autoencoder(number_of_users, number_of_movies)
-model3.train(data_zeros, data_mask, users_validation=users_test, movies_validation=movies_test,
-             ratings_validations=ratings_test)
-
-preds = model3.predict(data_zeros, users_test, movies_test)
-print(root_mean_square_error(ratings_test, preds))
-###
-
-###
-model4 = Embeddings(number_of_users, number_of_movies)
-model4.fit_data(users_train, movies_train, ratings_train,
-                users_validation=users_test, movies_validation=movies_test,
-                ratings_validation=ratings_test)
-
-preds = model4.predict(users_test, movies_test)
-root_mean_square_error(ratings_test, preds)
-###
+# persist results
+preds_pd = pd.DataFrame(index=test_IDs, data=regressor_predictions, columns=['Prediction'])
+preds_pd.to_csv('ensemble_predictions.csv')
