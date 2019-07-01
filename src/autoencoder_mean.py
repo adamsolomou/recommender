@@ -101,7 +101,7 @@ ratings_train = data_zeros[non_zero_inds]
 list_preds_train = []
 list_preds_test = []
 for _ in range(10): 
-    model3 = Autoencoder(number_of_users, number_of_movies, layers=[15,15,15], masking=0.3)
+    model3 = Autoencoder(number_of_users, number_of_movies, layers=[21, 21, 21], masking=0.5)
     model3.train(data_zeros, data_mask, users_validation=users_test, movies_validation=movies_test,
                  ratings_validations=ratings_test, n_epochs=200, verbose=False)
 
