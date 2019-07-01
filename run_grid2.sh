@@ -36,9 +36,11 @@ end[7]="0.11"
 
 my_pids=()
 
-for j in 7 8 9 10 11; do
-	for i in 0 1 2 3 4 5 6 7; do
-		python src/svdplus_exp.py --num-iter $num_iters --train-size $train_size --sleep $sleep_time --verbose grid --hidden-start $j --hidden-end $j --reg-start ${begin[$i]} --reg-end ${end[$i]} --reg-point-num $point_num > $dir/grid2_$j.out &
+# for j in 7 8 9 10 11; do
+	# for i in 0 1 2 3 4 5 6 7; do
+for j in 10 11; do
+	for i in 0 1 2; do
+		python src/svdplus_exp.py --num-iter $num_iters --train-size $train_size --sleep $sleep_time --verbose grid --hidden-start $j --hidden-end $j --reg-start ${begin[$i]} --reg-end ${end[$i]} --reg-point-num $point_num > $dir/grid2_${j}_$i.out &
 		my_pids+="$! "
 	done
 
