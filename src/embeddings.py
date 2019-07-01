@@ -115,27 +115,27 @@ class Embeddings:
         return tf.reduce_sum((true - predictions) ** 2, name='square_error')
 
     # noinspection PyUnboundLocalVariable
-    def fit_data(self,
-                 users_train,
-                 movies_train,
-                 ratings_train,
-                 users_validation=None,
-                 movies_validation=None,
-                 ratings_validation=None,
-                 epochs=40,
-                 verbose=True,
-                 decay=0.97,
-                 decay_steps=2000,
-                 learning_rate=1.0,
-                 log_path=DEFAULT_LOG_PATH,
-                 batch_size=512):
+    def fit(self,
+            train_users,
+            train_movies,
+            train_ratings,
+            valid_users=None,
+            valid_movies=None,
+            valid_ratings=None,
+            epochs=40,
+            verbose=True,
+            decay=0.97,
+            decay_steps=2000,
+            learning_rate=1.0,
+            log_path=DEFAULT_LOG_PATH,
+            batch_size=512):
 
         if os.path.exists(log_path) and os.path.isdir(log_path):
             shutil.rmtree(log_path, ignore_errors=True)
 
         validation = False
-        if users_validation is not None and movies_validation is not None and ratings_validation is not None:
-            assert len(users_validation) == len(movies_validation) == len(ratings_validation), \
+        if valid_users is not None and valid_movies is not None and valid_ratings is not None:
+            assert len(valid_users) == len(valid_movies) == len(valid_ratings), \
                 "Invalid validation data provided"
 
             validation = True
@@ -202,7 +202,7 @@ class Embeddings:
 
                 for epoch in range(epochs):
 
-                    users_shuf, movies_shuf, ratings_shuf = shuffle(users_train, movies_train, ratings_train)
+                    users_shuf, movies_shuf, ratings_shuf = shuffle(train_users, train_movies, train_ratings)
 
                     total_square_error_train = 0
                     total_square_error_validation = 0
@@ -212,7 +212,7 @@ class Embeddings:
                                                                     ratings_train_placeholder: ratings_shuf
                                                                     })
                     try:
-                        pbar = tqdm(total=len(users_train))
+                        pbar = tqdm(total=len(train_users))
                         pbar.set_description('[Epoch:{:4d}]'.format(epoch + 1))
                         while True:
                             error, summary, _, step = sess.run([square_error_train, summaries_merged,
@@ -226,15 +226,15 @@ class Embeddings:
                     except tf.errors.OutOfRangeError:
                         pass
 
-                    train_error = math.sqrt(total_square_error_train / len(users_train))
+                    train_error = math.sqrt(total_square_error_train / len(train_users))
 
                     saver.save(sess, os.path.join(log_path, "model"), global_step=epoch + 1)
 
                     if validation:
                         sess.run(iterator_validation.initializer,
-                                 feed_dict={users_validation_placeholder: users_validation,
-                                            movies_validation_placeholder: movies_validation,
-                                            ratings_validation_placeholder: ratings_validation
+                                 feed_dict={users_validation_placeholder: valid_users,
+                                            movies_validation_placeholder: valid_movies,
+                                            ratings_validation_placeholder: valid_ratings
                                             })
 
                         try:
@@ -244,7 +244,7 @@ class Embeddings:
                         except tf.errors.OutOfRangeError:
                             pass
 
-                        validation_error = math.sqrt(total_square_error_validation / len(users_validation))
+                        validation_error = math.sqrt(total_square_error_validation / len(valid_users))
                         pbar.set_postfix_str("Train RMSE: {:3.4f}; Valid RMSE: {:3.4f}"
                                              .format(train_error, validation_error))
 
@@ -254,9 +254,9 @@ class Embeddings:
                     pbar.close()
 
     def predict(self,
-                users_test,
-                movies_test,
-                log_path=None,
+                test_users,
+                test_movies,
+                log_path=DEFAULT_LOG_PATH,
                 batch_size=512):
 
         if log_path is None:
@@ -283,13 +283,13 @@ class Embeddings:
                 saver = tf.train.Saver()
                 saver.restore(sess, tf.train.latest_checkpoint(log_path))
 
-                sess.run(iterator.initializer, feed_dict={users_placeholder: users_test,
-                                                          movies_placeholder: movies_test})
+                sess.run(iterator.initializer, feed_dict={users_placeholder: test_users,
+                                                          movies_placeholder: test_movies})
 
                 total_predictions = list()
 
                 try:
-                    with tqdm(total=len(users_test)) as pbar:
+                    with tqdm(total=len(test_users)) as pbar:
                         while True:
                             predictions_batch = sess.run(ratings_predictions)
 

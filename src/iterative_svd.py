@@ -57,11 +57,14 @@ class IterativeSVD(object):
             self.X[train_mask] = A_train[train_mask]
 
             # Validation mode
-            if validation and verbose:
+            if validation:
                 error = A_valid[valid_mask] - self.X[valid_mask]
                 valid_error = np.sqrt(np.mean(np.square(error)))
                 # noinspection PyUnboundLocalVariable
                 valid_error_per_iter.append(valid_error)
+
+                if verbose:
+                    print('Validation error at iteration', iter_, 'is', valid_error)
 
         if validation:
             return valid_error_per_iter

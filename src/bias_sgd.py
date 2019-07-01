@@ -1,11 +1,6 @@
 import numpy as np
-import math
 from sklearn.utils import shuffle
 from utils import root_mean_square_error
-
-
-def update_learning_rate(learning_rate, current_step, update_every, decay):
-    return learning_rate * math.pow(decay, current_step / update_every)
 
 
 # noinspection PyPep8Naming
@@ -33,27 +28,27 @@ class BiasSGD:
         self.biasU = np.zeros(self.number_of_users)
         self.biasV = np.zeros(self.number_of_movies)
 
-    def fit_data(self,
-                 users_train,
-                 movies_train,
-                 ratings_train,
-                 users_validation=None,
-                 movies_validation=None,
-                 ratings_validation=None,
-                 num_epochs=50,
-                 decay=1.5,
-                 lr=0.05,
-                 decay_every=5,
-                 verbose=True):
+    def fit(self,
+            train_users,
+            train_movies,
+            train_ratings,
+            valid_users=None,
+            valid_movies=None,
+            valid_ratings=None,
+            num_epochs=50,
+            decay=1.5,
+            lr=0.05,
+            decay_every=5,
+            verbose=True):
         """
         Parameters
         ----------
-        users_train             array of user ids for train
-        movies_train            array of movie ids for train
-        ratings_train           array of ratings for train
-        users_validation        array of user ids for validation
-        movies_validation       array of movie ids for validation
-        ratings_validation      array of ratings for validation
+        train_users             array of user ids for train
+        train_movies            array of movie ids for train
+        train_ratings           array of ratings for train
+        valid_users             array of user ids for validation
+        valid_movies            array of movie ids for validation
+        valid_ratings           array of ratings for validation
         num_epochs              number of epochs
         decay                   divide the learning rate by this number every requested epochs
         lr                      initial learning rate
@@ -62,14 +57,13 @@ class BiasSGD:
         """
 
         validation = False
-        if users_validation is not None and movies_validation is not None and ratings_validation is not None:
+        if valid_users is not None and valid_movies is not None and valid_ratings is not None:
             validation = True
 
+        average_rating = np.mean(train_ratings)
 
-        average_rating = np.mean(ratings_train)
-
-        for epoch in range(num_epochs):
-            users_train_sh, movies_train_sh, ratings_train_sh = shuffle(users_train, movies_train, ratings_train)
+        for epoch in range(1, num_epochs + 1):
+            users_train_sh, movies_train_sh, ratings_train_sh = shuffle(train_users, train_movies, train_ratings)
 
             for user, movie, rating in zip(users_train_sh, movies_train_sh, ratings_train_sh):
                 U_d = self.U[user, :]
@@ -99,18 +93,18 @@ class BiasSGD:
                     self.biasV[movie] = new_biasV_n
 
             if validation and verbose:
-                predictions = self.predict(users_validation, movies_validation)
+                predictions = self.predict(valid_users, valid_movies)
                 print('Validation error at epoch', epoch, 'is',
-                      root_mean_square_error(ratings_validation, predictions))
+                      root_mean_square_error(valid_ratings, predictions))
 
-            if (epoch + 1) % decay_every == 0:
+            if epoch % decay_every == 0:
                 lr /= decay
 
-    def predict(self, users_test, movies_test):
+    def predict(self, test_users, test_movies):
 
         predictions = list()
 
-        for user, movie in zip(users_test, movies_test):
+        for user, movie in zip(test_users, test_movies):
             predictions.append(self.U[user, :].dot(self.V[movie, :]) + self.biasU[user] + self.biasV[movie])
 
         return np.array(predictions)

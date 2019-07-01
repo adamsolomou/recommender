@@ -171,18 +171,18 @@ class Autoencoder:
 
                 return predictions
 
-    def train(self,
-              data,
-              data_mask,
-              users_validation=None,
-              movies_validation=None,
-              ratings_validations=None,
-              n_epochs=350,
-              decay_steps=None,
-              learning_rate=None,
-              decay=None,
-              log_path=None,
-              verbose=True):
+    def fit(self,
+            data,
+            data_mask,
+            users_validation=None,
+            movies_validation=None,
+            ratings_validations=None,
+            n_epochs=350,
+            decay_steps=None,
+            learning_rate=None,
+            decay=None,
+            log_path=None,
+            verbose=True):
 
         if decay_steps is None:
             # empirical
@@ -252,14 +252,11 @@ class Autoencoder:
                     writer.flush()
 
                     if epoch % 10 == 0:
-                        if verbose:
-                            print('Autoencoder: Done with epoch', epoch)
+                        if verbose and validation:
+                            predictions_validation = self.predict_with_session(sess, data,
+                                                                               users_validation, movies_validation)
 
-                            if validation:
-                                predictions_validation = self.predict_with_session(sess, data,
-                                                                                   users_validation, movies_validation)
-
-                                print('Autoencoder: At epoch', epoch, 'validation error:',
-                                      root_mean_square_error(ratings_validations, predictions_validation))
+                            print('Autoencoder: At epoch', epoch, 'validation error:',
+                                  root_mean_square_error(ratings_validations, predictions_validation))
 
                         saver.save(sess, os.path.join(log_path, "model"), global_step=epoch)
