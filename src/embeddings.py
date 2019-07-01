@@ -28,8 +28,22 @@ class Embeddings:
     def create_graph(self,
                      users,
                      movies,
-                     training,
+                     training=True,
                      reuse=False):
+        """
+        Creates the graph
+
+        Parameters
+        ----------
+        users       tensor containing the user ids
+        movies      tensor containing the movie ids
+        training    boolean signifying if we are in train mode or not
+        reuse       boolean reuse variables
+
+        Returns
+        -------
+        tensor containing the ratings
+        """
 
         with tf.variable_scope("embeddings_model", reuse=reuse):
             with tf.name_scope("embeddings"):

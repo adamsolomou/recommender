@@ -2,6 +2,7 @@ from sklearn.utils import shuffle
 from sklearn.metrics import mean_squared_error
 import math
 
+
 def get_batches(iterable, batch_size=64, do_shuffle=True):
     if do_shuffle:
         iterable = shuffle(iterable)

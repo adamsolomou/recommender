@@ -1,63 +1,91 @@
 import numpy as np
 
 
-class IterativeSVD:
-    data_iterative_svd = None
+class IterativeSVD(object):
+    X = None
 
-    def __init__(self,
-                 number_of_users,
-                 number_of_movies,
-                 singular_values_to_keep=None):
-
-        if singular_values_to_keep is None:
-            self.singular_values_to_keep = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 5, 6, 10]
-        else:
-            self.singular_values_to_keep = singular_values_to_keep
-
-        self.maximum_rank = min(number_of_users, number_of_movies)
-        self.number_of_users = number_of_users
-        self.number_of_movies = number_of_movies
+    def __init__(self, shrinkage=38):
+        """
+        Parameters:
+        -----------
+        k_per_iter : integer list
+            Each entry corresponds to the number of singular values to keep
+            when truncating the SVD.
+        """
+        self.shrinkage = shrinkage
 
     # noinspection PyPep8Naming
-    def fit_data(self,
-                 data,
-                 users_train,
-                 movies_train,
-                 ratings_train):
+    def fit(self, A_train, train_mask, A_valid=None, valid_mask=None, iterations=15, verbose=True):
+        """
+        Fit the training data.
+        Parameters:
+        -----------
+        A_train : array-like, shape=(n_users, n_movies)
+            The imputed user-item training matrix.
+        train_mask: array-like, shape=(n_users, n_movies)
+            A boolean mask with True endings for known training ratings and False for unkown.
+        A_valid : array-like, shape=(n_users, n_movies)
+            The imputed user-item validation matrix.
+        valid_mask: array-like, shape=(n_users, n_movies)
+            A boolean mask with True endings for known validation ratings and False for unkown.
+        Returns:
+        --------
+        If A_valid and valid_mask are provided a list with the error on the validation set for
+        each iteration is returned. Otherwise nothing is returned.
+        """
 
-        self.data_iterative_svd = data.copy()
+        # Validation mode
+        validation = False
+        if A_valid is not None and valid_mask is not None:
+            validation = True
+            valid_error_per_iter = list()
 
-        for singular_values in self.singular_values_to_keep:
+        # Make a copy
+        self.X = A_train.copy()
 
-            U, s, Vt = np.linalg.svd(self.data_iterative_svd, full_matrices=True)
+        for iter_ in range(iterations):
+            # SVD
+            U, s, Vt = np.linalg.svd(self.X, full_matrices=False)
 
-            S = np.zeros((self.number_of_users, self.number_of_movies))
+            # Truncate SVD
+            s_ = (s - self.shrinkage).clip(min=0)
 
-            S[:self.maximum_rank, :self.maximum_rank] = np.diag(s)
+            # Reconstruct
+            self.X = np.dot(np.dot(U, np.diag(s_)), Vt)
 
-            Sk = S.copy()
-            Sk[singular_values:, singular_values:] = 0
+            # Restore observed ratings
+            self.X[train_mask] = A_train[train_mask]
 
-            self.data_iterative_svd = U.dot(Sk).dot(Vt)
-            
-            # fill in true values
-            for (user, movie, rating) in zip(users_train, movies_train, ratings_train):
-                self.data_iterative_svd[user][movie] = rating
+            # Validation mode
+            if validation and verbose:
+                error = A_valid[valid_mask] - self.X[valid_mask]
+                valid_error = np.sqrt(np.mean(np.square(error)))
+                # noinspection PyUnboundLocalVariable
+                valid_error_per_iter.append(valid_error)
 
-            # fill in true values
-            for (user, movie, rating) in zip(users_train, movies_train, ratings_train):
-                self.data_iterative_svd[user][movie] = rating
+        if validation:
+            return valid_error_per_iter
 
-    def predict(self,
-                users_test,
-                movies_test):
+    def predict(self, test_users, test_movies):
+        """
+        Predict ratings for test_users and test_movies
+        Parameters:
+        -----------
+        test_users : array-like, shape=(test_size,)
+            The user ID for each required prediction.
+        test_movies : array-like, shape=(test_size,)
+            The movie ID for each required prediction.
+        Returns:
+        --------
+        predictions : array-like, shape=(test_size,)
+            Predicted ratings for each (user,movie) pair
+        """
 
-        assert self.data_iterative_svd is not None, "You first have to fit the data"
+        assert self.X is not None, "You first have to fit the data."
 
-        predictions = np.zeros(len(users_test))
+        predictions = np.zeros(len(test_users))
 
-        for i, (user, movie) in enumerate(zip(users_test, movies_test)):
-            predictions[i] = self.data_iterative_svd[user][movie]
+        for i, (user, movie) in enumerate(zip(test_users, test_movies)):
+            predictions[i] = self.X[user, movie]
 
         return predictions
-

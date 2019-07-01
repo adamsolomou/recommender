@@ -3,17 +3,20 @@ import pandas as pd
 import os
 import tensorflow as tf
 from utils import root_mean_square_error
+
+# models
+from bias_sgd import BiasSGD
 from iterative_svd import IterativeSVD
-from svdplus import SVDplus
 from autoencoder import Autoencoder
 from embeddings import Embeddings
 
 
 device_name = tf.test.gpu_device_name()
 if device_name != '/device:GPU:0':
-    raise SystemError('GPU device not found')
-
-print('Found GPU at: {}'.format(device_name))
+    print('GPU device not found')
+    print('Be sure you want to continue...')
+else:
+    print('Found GPU at: {}'.format(device_name))
 
 
 DATA_DIR = '/cluster/home/sanagnos/CIL/data'
