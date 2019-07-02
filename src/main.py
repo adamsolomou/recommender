@@ -1,3 +1,5 @@
+import argparse
+
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -13,86 +15,144 @@ from autoencoder import Autoencoder
 from embeddings import Embeddings
 
 
-device_name = tf.test.gpu_device_name()
-if device_name != '/device:GPU:0':
-    print('GPU device not found')
-    print('Be sure you want to continue...')
-else:
-    print('Found GPU at: {}'.format(device_name))
+def create_parser():
+    parser = argparse.ArgumentParser(description="Run models")
+    parser.add_argument("--verbose", "-v", action="store_true")
 
-dataloader = fetch_data(train_size=0.88)
-number_of_users, number_of_movies = 10000, 1000
+    parser.add_argument("--train-size", type=float, default=0.88)
 
-# Training
-train_IDs, train_users, train_movies, train_ratings, A_train = dataloader['train']
+    parser.add_argument("--shrinkage", type=int, default=38)
+    parser.add_argument("--isvd-num-epochs", type=int, default=15)
 
-# Validation
-valid_IDs, valid_users, valid_movies, valid_ratings, A_valid = dataloader['valid']
+    parser.add_argument("--hidden-size", type=int, default=12)
+    parser.add_argument("--regularization_matrix", type=float, default=0.08)
+    parser.add_argument("--regularization_vector", type=float, default=0.04)
+    parser.add_argument("--sgd-num-epochs", type=int, default=50)
+    parser.add_argument("--decay", type=float, default=1.5)
+    parser.add_argument("--lr", type=float, default=0.05)
+    parser.add_argument("--decay-every", type=int, default=5)
 
-# Testing
-test_IDs, test_users, test_movies = dataloader['test']
+    parser.add_argument("--autoenc-regularization", type=float, default=0)
+    parser.add_argument("--autoenc-num-epochs", type=int, default=0)
+    parser.add_argument("--autoenc-masking", type=float, default=0.3)
 
-known_train = ~np.isnan(A_train)
-known_validation = ~np.isnan(A_valid)
+    parser.add_argument("--embeddings-size", type=int, default=96)
+    parser.add_argument("--embeddings-dropout-embeddings", type=float,
+                        default=0.2)
+    parser.add_argument("--embeddings-dropout", type=float, default=0.1)
+    parser.add_argument("--embeddings-decay", type=float, default=0.97)
+    parser.add_argument("--embeddings-learning-rate", type=float, default=1.0)
+    parser.add_argument("--embeddings-decay-steps", type=int, default=2000)
+    parser.add_argument("--embeddings-num-epochs", type=int, default=5)
+    parser.add_argument("--embeddings-batch-size", type=int, default=512)
 
-# Fill-in missing entries
-X_train = pd.DataFrame(A_train, copy=True)
+    parser.add_argument("--output-file", "-o",
+                        default="ensemble_predictions.csv")
 
-movie_avg_ratings = X_train.mean(axis=0, skipna=True)
+    return parser
 
-A_train_zeros = X_train.fillna(0.0).values
-A_train_average = X_train.fillna(movie_avg_ratings, axis=0).values
-known_train_int = known_train.astype(int)
 
-# iterative SVD model
-model = IterativeSVD(shrinkage=38)
-model.fit(A_train_average, known_train, A_valid=A_valid, valid_mask=known_validation, verbose=True)
+if __name__ == "__main__":
+    parser = create_parser()
+    args = parser.parse_args()
 
-preds_iSVD_val = model.predict(valid_users, valid_movies)
-preds_iSVD_test = model.predict(test_users, test_movies)
+    device_name = tf.test.gpu_device_name()
+    if device_name != '/device:GPU:0':
+        print('GPU device not found')
+        print('Be sure you want to continue...')
+    else:
+        print('Found GPU at: {}'.format(device_name))
 
-# biased SGD model
-model = BiasSGD(number_of_users=10000, number_of_movies=1000,
-                hidden_size=12, regularization_matrix=0.08, regularization_vector=0.04)
+    dataloader = fetch_data(train_size=args.train_size)
+    number_of_users, number_of_movies = 10000, 1000
 
-model.fit(train_users, train_movies, train_ratings,
-          valid_users=valid_users, valid_movies=valid_movies, valid_ratings=valid_ratings,
-          num_epochs=50, decay=1.5, lr=0.05, decay_every=5, verbose=True)
+    # Training
+    train_IDs, train_users, train_movies, train_ratings, A_train = dataloader['train']
 
-preds_bSGD_val = model.predict(valid_users, valid_movies)
-preds_bSGD_test = model.predict(test_users, test_movies)
+    # Validation
+    valid_IDs, valid_users, valid_movies, valid_ratings, A_valid = dataloader['valid']
 
-# autoencoder model
-model = Autoencoder(number_of_users, number_of_movies)
-model.fit(A_train_zeros, known_train_int, valid_users=valid_users, valid_movies=valid_movies,
-             valid_ratings=valid_ratings)
+    # Testing
+    test_IDs, test_users, test_movies = dataloader['test']
 
-preds = model.predict(A_train_zeros, test_users, test_movies)
+    known_train = ~np.isnan(A_train)
+    known_validation = ~np.isnan(A_valid)
 
-preds_autoencoder_val = model.predict(A_train_zeros, valid_users, valid_movies)
-preds_autoencoder_test = model.predict(A_train_zeros, test_users, test_movies)
+    # Fill-in missing entries
+    X_train = pd.DataFrame(A_train, copy=True)
 
-# embeddings model
-model = Embeddings(number_of_users, number_of_movies)
-model.fit(train_users, train_movies, train_ratings,
-          valid_users=valid_users, valid_movies=valid_movies,
-          valid_ratings=valid_ratings, epochs=5)
+    movie_avg_ratings = X_train.mean(axis=0, skipna=True)
 
-preds_embeddings_val = model.predict(valid_users, valid_movies)
-preds_embeddings_test = model.predict(test_users, test_movies)
+    A_train_zeros = X_train.fillna(0.0).values
+    A_train_average = X_train.fillna(movie_avg_ratings, axis=0).values
+    known_train_int = known_train.astype(int)
 
-# create regressor for combined predictions
-valid_predictions = np.concatenate([preds_iSVD_val, preds_bSGD_val, preds_autoencoder_val, preds_autoencoder_val])
-valid_predictions = valid_predictions.reshape(4, valid_users.shape[0]).T
+    # iterative SVD model
+    model = IterativeSVD(shrinkage=args.shrinkage)
+    model.fit(A_train_average, known_train, A_valid=A_valid, valid_mask=known_validation, verbose=args.verbose, iterations=args.isvd_num_epochs)
 
-test_predictions = np.concatenate([preds_iSVD_test, preds_bSGD_test, preds_autoencoder_test, preds_autoencoder_test])
-test_predictions = test_predictions.reshape(4, test_users.shape[0]).T
+    preds_iSVD_val = model.predict(valid_users, valid_movies)
+    preds_iSVD_test = model.predict(test_users, test_movies)
 
-regressor = LinearRegression(fit_intercept=True)
-regressor.fit(valid_predictions, valid_ratings)
+    # biased SGD model
+    model = BiasSGD(number_of_users=10000, number_of_movies=1000,
+                    hidden_size=args.hidden_size,
+                    regularization_matrix=args.regularization_matrix,
+                    regularization_vector=args.regularization_vector)
 
-regressor_predictions = regressor.predict(test_predictions)
+    model.fit(train_users, train_movies, train_ratings,
+              valid_users=valid_users, valid_movies=valid_movies,
+              valid_ratings=valid_ratings,
+              num_epochs=args.sgd_num_epochs, decay=args.decay, lr=args.lr,
+              decay_every=args.decay_every, verbose=args.verbose)
 
-# persist results
-preds_pd = pd.DataFrame(index=test_IDs, data=regressor_predictions, columns=['Prediction'])
-preds_pd.to_csv('ensemble_predictions.csv')
+    preds_bSGD_val = model.predict(valid_users, valid_movies)
+    preds_bSGD_test = model.predict(test_users, test_movies)
+
+    # autoencoder model
+    model = Autoencoder(number_of_users, number_of_movies,
+                        regularization=args.autoenc_regularization,
+                        masking=args.autoenc_masking)
+    model.fit(A_train_zeros, known_train_int, n_epochs=args.autoenc_num_epochs,
+              valid_users=valid_users, valid_movies=valid_movies,
+              valid_ratings=valid_ratings)
+
+    preds = model.predict(A_train_zeros, test_users, test_movies)
+
+    preds_autoencoder_val = model.predict(A_train_zeros, valid_users, valid_movies)
+    preds_autoencoder_test = model.predict(A_train_zeros, test_users, test_movies)
+
+    # embeddings model
+    model = Embeddings(number_of_users, number_of_movies,
+                       embeddings_size=args.embeddings_size,
+                       dropout_embeddings=args.embeddings_dropout_embeddings,
+                       dropout=args.embeddings_dropout)
+    model.fit(train_users, train_movies, train_ratings,
+              valid_users=valid_users, valid_movies=valid_movies,
+              valid_ratings=valid_ratings, epochs=args.embeddings_num_epochs,
+              verbose=args.verbose, decay=args.embeddings_decay,
+              decay_steps=args.embeddings_decay_steps,
+              learning_rate=args.embeddings_learning_rate,
+              batch_size=args.embeddings_batch_size)
+
+    preds_embeddings_val = model.predict(valid_users, valid_movies)
+    preds_embeddings_test = model.predict(test_users, test_movies)
+
+    # create regressor for combined predictions
+    valid_predictions = np.concatenate([preds_iSVD_val, preds_bSGD_val,
+                                        preds_autoencoder_val,
+                                        preds_autoencoder_val])
+
+    valid_predictions = valid_predictions.reshape(4, valid_users.shape[0]).T
+
+    test_predictions = np.concatenate([preds_iSVD_test, preds_bSGD_test, preds_autoencoder_test, preds_autoencoder_test])
+    test_predictions = test_predictions.reshape(4, test_users.shape[0]).T
+
+    regressor = LinearRegression(fit_intercept=True)
+    regressor.fit(valid_predictions, valid_ratings)
+
+    regressor_predictions = regressor.predict(test_predictions)
+
+    # persist results
+    preds_pd = pd.DataFrame(index=test_IDs, data=regressor_predictions, columns=['Prediction'])
+    preds_pd.to_csv(args.output_file)
