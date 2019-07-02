@@ -1,10 +1,8 @@
-## Number of iterations for the neural network. Left at 15 for debugging purposes,
-## change to 150000000 for actual experiment.
-#num_iters=150000000
-num_iters=15
+## Number of iterations for the neural network.
+num_iters=150000000
 
 # The directory where the output will be stores. If it doesn't exist you need to create it.
-dir=grid2_exp_out
+dir=experiment_results/raw/grid2_exp_out
 
 # How many points along the lambda1 axis each process will calculate
 point_num=5
@@ -36,10 +34,11 @@ end[7]="0.11"
 
 my_pids=()
 
-# for j in 7 8 9 10 11; do
-	# for i in 0 1 2 3 4 5 6 7; do
+cd ..
+
+# Adjust j and i ranges to run for different values
 for j in 10 11; do
-	for i in 0 1 2; do
+	for i in 0 1; do
 		python src/svdplus_exp.py --num-iter $num_iters --train-size $train_size --sleep $sleep_time --verbose grid --hidden-start $j --hidden-end $j --reg-start ${begin[$i]} --reg-end ${end[$i]} --reg-point-num $point_num > $dir/grid2_${j}_$i.out &
 		my_pids+="$! "
 	done

@@ -1,9 +1,7 @@
 num_iters=150000000
-#num_iters=150
-dir=vector_exp_out
+dir=experiment_results/raw/vector_exp_out
 point_num=4
-sleep_time=300
-#sleep_time=3
+sleep_time=0
 train_size=0.88
 
 begin[0]="0.01"
@@ -17,6 +15,8 @@ end[1]="0.08"
 end[2]="0.12"
 end[3]="0.16"
 end[4]="0.2"
+
+cd ..
 
 for j in 0 1 2 3 4; do
 	python src/svdplus_exp.py --num-iter $num_iters --train-size $train_size --sleep $sleep_time --verbose reg-vector --start ${begin[$j]} --end ${end[$j]} --point-num $point_num > $dir/vector_reg_$j.out &

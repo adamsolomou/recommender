@@ -1,9 +1,7 @@
-source ../venv/bin/activate
-
 num_iters=150000000
-#num_iters=150
-sleep_time=3m
-dir=hidden_exp_out
+dir=experiment_results/raw/hidden_exp_out
+
+cd ..
 
 for i in 0 1 2 3; do
 	for j in 1 2 3 4 5; do
@@ -16,7 +14,6 @@ for i in 0 1 2 3; do
 		wait $pid
 	done
 	unset my_pids
-	sleep $sleep_time
 done
 
 
