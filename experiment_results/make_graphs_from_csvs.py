@@ -43,10 +43,11 @@ def autoencoder_graph():
     ax1.set_ylabel('RMSE')
 
     ax1.plot(data['Layer_size'], data['score'], '-o', markevery=[np.argmin(data['score'].values)])
-    plt.savefig('autoenc_layer.pdf')
+    plt.savefig('graphs/autoenc_layer.pdf')
 
 def svdplus_graph(csv_file):
     pdf_file = '.'.join([csv_file.split('.')[0], 'pdf'])
+    pdf_file = "graphs/" + pdf_file
     xlabel, ylabel, data = read_file(csv_file)
     minimum = min(data, key=lambda x: x[1])
 
@@ -69,12 +70,12 @@ def svdplus_graph(csv_file):
 if __name__ == "__main__":
     msg = "Plotting {} graphs..."
 
-    print(msg.format("Autoencoder"))
+    print(msg.format("preprocessed/Autoencoder"))
     autoencoder_graph()
 
-    print(msg.format("SVDplus"))
-    svdplus_graph('hidden_size.csv')
-    svdplus_graph('matrix_reg.csv')
-    svdplus_graph('vector_reg.csv')
+    print(msg.format("preprocessed/SVDplus"))
+    svdplus_graph('preprocessed/hidden_size.csv')
+    svdplus_graph('preprocessed/matrix_reg.csv')
+    svdplus_graph('preprocessed/vector_reg.csv')
 
 
