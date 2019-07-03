@@ -64,7 +64,7 @@ def autoencoder(args):
         preds = model3.predict(data_zeros, valid_users, valid_movies)
 
         score = root_mean_square_error(valid_ratings, preds)
-        pint("fold:", fold, "score:", score)
+        print("fold:", fold, "score:", score)
 
 if __name__ == "__main__":
     parser = create_parser()
