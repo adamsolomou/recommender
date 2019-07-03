@@ -13,12 +13,10 @@ device_name = tf.test.gpu_device_name()
 
 print('Found GPU at: {}'.format(device_name))
 
-DATA_DIR = '/cluster/home/saioanni/CIL/recommender/data/'
-
 number_of_users, number_of_movies = (10000, 1000)
 testing=True
 
-dataloader = fetch_data(train_size=1)
+dataloader = fetch_data(train_size=1, train_file='../data/data_train.csv', test_file='../data/sampleSubmission.csv')
 number_of_users, number_of_movies = 10000, 1000
 IDs, users, movies, ratings, _ = dataloader['train']
 
@@ -26,6 +24,8 @@ IDs, users, movies, ratings, _ = dataloader['train']
 def create_parser():
     parser = argparse.ArgumentParser(description="Run cross validation for model")
     parser.add_argument("--verbose", "-v", action="store_true")
+
+    parser.add_argument("--model", "-m", type=str)
 
     parser.add_argument("--splits-num", type=int, default=10)
     parser.add_argument("--shuffle", action="store_true")
@@ -37,11 +37,7 @@ def create_parser():
 
     return parser
 
-
-if __name__ == "__main__":
-    parser = create_parser()
-    args = parser.parse_args()
-
+def autoencoder(args):
     kf = KFold(n_splits=args.splits_num, shuffle=args.shuffle, random_state=42)
 
     for fold, (train_index, valid_index) in enumerate(kf.split(users)):
@@ -69,3 +65,10 @@ if __name__ == "__main__":
 
         score = root_mean_square_error(valid_ratings, preds)
         pint("fold:", fold, "score:", score)
+
+if __name__ == "__main__":
+    parser = create_parser()
+    args = parser.parse_args()
+    if args.model == "autoencoder":
+        autoencoder(args)
+
