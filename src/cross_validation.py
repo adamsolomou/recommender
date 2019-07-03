@@ -36,7 +36,7 @@ def create_parser():
     parser.add_argument("--verbose", "-v", action="store_true")
 
     parser.add_argument("--splits-num", type=int, default=10)
-    parser.add_argument("--shuffle", action="store_true")
+    parser.add_argument("--shuffle", action="store_true", default=False)
     parser.add_argument("--model", "-m", type=str)
 
     #BSGD parameters
