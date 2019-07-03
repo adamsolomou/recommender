@@ -8,9 +8,8 @@ class IterativeSVD(object):
         """
         Parameters:
         -----------
-        k_per_iter : integer list
-            Each entry corresponds to the number of singular values to keep
-            when truncating the SVD.
+        shrinkage : integer 
+            The number to be subtracted from the singular values at every iteration 
         """
         self.shrinkage = shrinkage
 
@@ -28,6 +27,10 @@ class IterativeSVD(object):
             The imputed user-item validation matrix.
         valid_mask: array-like, shape=(n_users, n_movies)
             A boolean mask with True endings for known validation ratings and False for unkown.
+        iterations : int
+            The number of iterations to train the model.. 
+        verbose : boolean 
+            Whether to print results on the output.
         Returns:
         --------
         If A_valid and valid_mask are provided a list with the error on the validation set for
