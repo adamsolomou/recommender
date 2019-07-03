@@ -1,19 +1,19 @@
+import sys
+sys.path.insert(0, '..')
+
 import numpy as np
 import pandas as pd
 import os
 import tensorflow as tf 
 from utils import root_mean_square_error
-from iterative_svd import IterativeSVD
-from svdplus import SVDplus
 from autoencoder import Autoencoder
-from embeddings import Embeddings
 
 
 device_name = tf.test.gpu_device_name()
 
 print('Found GPU at: {}'.format(device_name))
 
-DATA_DIR = '/cluster/home/saioanni/CIL/recommender/data/'
+DATA_DIR = '../../data'
 RANDOM_SEED = 42
 
 number_of_users, number_of_movies = (10000, 1000)
@@ -97,8 +97,8 @@ for i, (user, movie) in enumerate(zip(users_train, movies_train)):
 for masking in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
     print('masking:', masking)
     model3 = Autoencoder(number_of_users, number_of_movies, masking=masking)
-    model3.train(data_zeros, data_mask, users_validation=users_test, movies_validation=movies_test,
-                 ratings_validations=ratings_test, n_epochs=200, verbose=False)
+    model3.fit(data_zeros, data_mask, valid_users=users_test, valid_movies=movies_test,
+                 valid_ratings=ratings_test, n_epochs=200, verbose=False)
 
     preds = model3.predict(data_zeros, users_test, movies_test)
     score = root_mean_square_error(ratings_test, preds)

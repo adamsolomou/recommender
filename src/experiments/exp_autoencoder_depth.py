@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '..')
+
 import numpy as np
 import pandas as pd
 import os
@@ -13,7 +16,7 @@ device_name = tf.test.gpu_device_name()
 
 print('Found GPU at: {}'.format(device_name))
 
-DATA_DIR = '/cluster/home/saioanni/CIL/recommender/data/'
+DATA_DIR = '../../data/'
 RANDOM_SEED = 42
 
 number_of_users, number_of_movies = (10000, 1000)
@@ -101,8 +104,8 @@ depths += [[i,i,i] for i in range(L,H)]
 
 for layers in depths: 
     model3 = Autoencoder(number_of_users, number_of_movies, layers=layers, masking=0.5)
-    model3.train(data_zeros, data_mask, users_validation=users_test, movies_validation=movies_test,
-                 ratings_validations=ratings_test, n_epochs=200, verbose=False)
+    model3.fit(data_zeros, data_mask, valid_users=users_test, valid_movies=movies_test,
+                 valid_ratings=ratings_test, n_epochs=200, verbose=False)
 
     preds = model3.predict(data_zeros, users_test, movies_test)
     score = root_mean_square_error(ratings_test, preds)
