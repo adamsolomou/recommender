@@ -17,7 +17,8 @@ Team: 	sasglentame
 
     .
     ├── data                               # should contain files data_train.csv  sampleSubmission.csv
-    ├── src                                                     
+    ├── src 
+        ├── experiments                    # experiment scripts
     ├── report                              
     │   ├── report.pdf                      # Final report.
     ├── requirements.txt
@@ -48,9 +49,16 @@ To run on cluster:
   
 To replicate final submission: 
 
-TODO
+To replicate experiments
+```
+cd src/experiments # You should be in the experiment directory for the experiments to run
+python <experiment> 
+```
 
 To run cross-validation test:
+```
+python cross_validation --model <model> [--<parameters> <value>]
+```
 
 TODO
 
@@ -61,7 +69,7 @@ TODOS:
 # recommender
 Collaborative Filtering for Movie Recommendation 
 
-## To run experiments
+## For the experiments
 
 
 * `cd` into the `experiment_results` directory.
