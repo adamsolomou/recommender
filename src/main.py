@@ -1,18 +1,19 @@
 import argparse
-
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from utils import root_mean_square_error
-from reader import fetch_data
+
 from sklearn.linear_model import LinearRegression
 
+# Custom dependencies
+from reader import fetch_data
+from utils import root_mean_square_error
 
-# models
+# Models
 from bias_sgd import BiasSGD
-from iterative_svd import IterativeSVD
+from embeddings import Embeddings 
 from autoencoder import Autoencoder
-from embeddings import Embeddings
+from iterative_svd import IterativeSVD 
 
 
 def create_parser():
@@ -33,7 +34,7 @@ def create_parser():
     parser.add_argument("--decay-every", type=int, default=5)
 
     parser.add_argument("--autoenc-regularization", type=float, default=0)
-    parser.add_argument("--autoenc-num-epochs", type=int, default=0)
+    parser.add_argument("--autoenc-num-epochs", type=int, default=200)
     parser.add_argument("--autoenc-masking", type=float, default=0.3)
 
     parser.add_argument("--embeddings-size", type=int, default=96)
@@ -50,7 +51,6 @@ def create_parser():
                         default="ensemble_predictions.csv")
 
     return parser
-
 
 if __name__ == "__main__":
     parser = create_parser()

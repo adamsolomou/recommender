@@ -1,17 +1,19 @@
 import argparse
-
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+
+from sklearn.model_selection import KFold
+
+# Custom dependencies
+from reader import fetch_data
 from utils import root_mean_square_error
 
 # models
 from bias_sgd import BiasSGD
-from iterative_svd import IterativeSVD
-from autoencoder import Autoencoder
 from embeddings import Embeddings
-from sklearn.model_selection import KFold
-from reader import fetch_data
+from autoencoder import Autoencoder
+from iterative_svd import IterativeSVD
 
 device_name = tf.test.gpu_device_name()
 if device_name != '/device:GPU:0':
@@ -223,7 +225,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     funs = dict(autoencoder=autoencoder, 
                 bsgd=bias_sgd,
-                isvd=iterative_svd,
-                embeddins=embeddings)
+                svd_shrinkage=iterative_svd,
+                ncf=embeddings)
 
     funs[args.model](args)

@@ -53,7 +53,7 @@ To run on cluster:
   
 To replicate final submission: 
 ```
-python main 
+python main.py 
 ```
 
 To replicate experiments:
@@ -64,5 +64,9 @@ python <experiment>
 
 To run cross-validation test:
 ```
-python cross_validation --model <model> [--<parameters> <value>]
+python cross_validation.py --model <model> [--<parameters> <value>]
 ```
+
+Valid models names are the following: 
+
+```autoencoder```, ```bsgd``` , ```svd_shrinkage```, ```ncf``` 
