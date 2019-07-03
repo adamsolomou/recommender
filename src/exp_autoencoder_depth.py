@@ -100,7 +100,7 @@ depths += [[i,i] for i in range(L,H)]
 depths += [[i,i,i] for i in range(L,H)]
 
 for layers in depths: 
-    model3 = Autoencoder(number_of_users, number_of_movies, layers=layers, masking=0.3)
+    model3 = Autoencoder(number_of_users, number_of_movies, layers=layers, masking=0.5)
     model3.train(data_zeros, data_mask, users_validation=users_test, movies_validation=movies_test,
                  ratings_validations=ratings_test, n_epochs=200, verbose=False)
 
