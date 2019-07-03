@@ -59,6 +59,7 @@ def create_parser():
     return parser
 
 def iterative_svd(args):
+    args.shuffle = True
     kf = KFold(n_splits=args.splits_num, shuffle=args.shuffle, random_state=42)
 
     for fold, (train_index, valid_index) in enumerate(kf.split(users)):
