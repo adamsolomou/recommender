@@ -18,7 +18,7 @@ RANDOM_SEED = 42
 
 number_of_users, number_of_movies = (10000, 1000)
 testing=True
-train_size = 0.88
+train_size = 0.9
 
 
 data_train = pd.read_csv(os.path.join(DATA_DIR, 'data_train.csv'))
