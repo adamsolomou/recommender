@@ -20,16 +20,10 @@ if device_name != '/device:GPU:0':
 else:
     print('Found GPU at: {}'.format(device_name))
 
-
-"""
-Train on training split, predictions on validation split. 
-"""
-
 dataloader = fetch_data(train_size=1)
 number_of_users, number_of_movies = 10000, 1000
 
 IDs, users, movies, ratings, _ = dataloader['train']
-
 
 def create_parser():
     parser = argparse.ArgumentParser(description="Run cross validation for model")
@@ -40,9 +34,9 @@ def create_parser():
     parser.add_argument("--model", "-m", type=str)
 
     #BSGD parameters
-    parser.add_argument("--hidden-size", type=int, default=12)
+    parser.add_argument("--hidden-size", type=int, default=9)
     parser.add_argument("--regularization-matrix", type=float, default=0.08)
-    parser.add_argument("--regularization-vector", type=float, default=0.04)
+    parser.add_argument("--regularization-vector", type=float, default=0.05)
     parser.add_argument("--decay", type=float, default=1.5)
     parser.add_argument("--lr", type=float, default=0.05)
     parser.add_argument("--decay-every", type=int, default=5)
@@ -56,11 +50,24 @@ def create_parser():
     parser.add_argument("--shrinkage", type=int, default=38)
     parser.add_argument("--iterations", type=int, default=15)
 
+    # Embeddings
+    parser.add_argument("--embeddings-size", type=int, default=96)
+    parser.add_argument("--embeddings-dropout-embeddings", type=float,default=0.2)
+
+    parser.add_argument("--embeddings-dropout", type=float, default=0.1)
+    parser.add_argument("--embeddings-decay", type=float, default=0.97)
+    parser.add_argument("--embeddings-learning-rate", type=float, default=1.0)
+    parser.add_argument("--embeddings-decay-steps", type=int, default=2000)
+    parser.add_argument("--embeddings-num-epochs", type=int, default=5)
+    parser.add_argument("--embeddings-batch-size", type=int, default=512)
+
     return parser
 
 def iterative_svd(args):
     args.shuffle = True
     kf = KFold(n_splits=args.splits_num, shuffle=args.shuffle, random_state=42)
+
+    score_lst = list()
 
     for fold, (train_index, valid_index) in enumerate(kf.split(users)):
         # Initialize matrices
@@ -97,10 +104,16 @@ def iterative_svd(args):
         preds = model.predict(valid_users, valid_movies)
 
         score = root_mean_square_error(valid_ratings, preds)
-        print("fold:", fold, "score:", score)
+        score_lst.append(score)
+
+        print("Fold:", fold+1, "RMSE:", score)
+
+    print('Mean CV RMSE:', np.mean(score_lst))
 
 def autoencoder(args):
     kf = KFold(n_splits=args.splits_num, shuffle=args.shuffle, random_state=42)
+
+    score_lst = list()
 
     for fold, (train_index, valid_index) in enumerate(kf.split(users)):
         # Initialize matrices
@@ -119,25 +132,26 @@ def autoencoder(args):
             data_zeros[user][movie] = train_ratings[i]
             data_mask[user][movie] = 1
 
-        model3 = Autoencoder(number_of_users, number_of_movies, layers=args.hidden_layers, masking=args.masking)
-        model3.fit(data_zeros, data_mask, valid_users=valid_users, valid_movies=valid_movies, valid_ratings=valid_ratings, 
+        model = Autoencoder(number_of_users, number_of_movies, layers=args.hidden_layers, masking=args.masking)
+        model.fit(data_zeros, data_mask, valid_users=valid_users, valid_movies=valid_movies, valid_ratings=valid_ratings, 
                     n_epochs=args.num_epochs, verbose=False)
 
-        preds = model3.predict(data_zeros, valid_users, valid_movies)
+        preds = model.predict(data_zeros, valid_users, valid_movies)
 
         score = root_mean_square_error(valid_ratings, preds)
-        print("fold:", fold, "score:", score)
+        score_lst.append(score)
+
+        print("Fold:", fold+1, "score:", score)
+
+    print('Mean CV RMSE:', np.mean(score_lst))
 
 def bias_sgd(args):
-    # shuffle to ensure train examples exist for all users with high
-    # probability
+    # shuffle to ensure train examples exist for all users with high probability
     kf = KFold(n_splits=args.splits_num, shuffle=args.shuffle, random_state=42)
 
-    predictions = np.zeros(users.shape[0])
+    score_lst = list()
 
-    # shuffle to
-
-    for train_index, valid_index in kf.split(users):
+    for fold, (train_index, valid_index) in enumerate(kf.split(users)):
         train_users = users[train_index]
         train_movies = movies[train_index]
         train_ratings = ratings[train_index]
@@ -159,16 +173,57 @@ def bias_sgd(args):
                   decay_every=args.decay_every,
                   verbose=args.verbose)
 
-        predictions[valid_index] = model.predict(valid_users, valid_movies)
+        preds = model.predict(valid_users, valid_movies)
 
-    # print final RMSE on all the results
-    print(root_mean_square_error(ratings, predictions))
+        score = root_mean_square_error(valid_ratings, preds)
+        score_lst.append(score)
+
+        print("Fold:", fold+1, "score:", score)
+
+    print('Mean CV RMSE:', np.mean(score_lst))
+
+def embeddings(args): 
+    kf = KFold(n_splits=args.splits_num, shuffle=args.shuffle, random_state=42)
+
+    score_lst = list()
+
+    for fold, (train_index, valid_index) in enumerate(kf.split(users)):
+        train_users = users[train_index]
+        train_movies = movies[train_index]
+        train_ratings = ratings[train_index]
+
+        valid_users = users[valid_index]
+        valid_movies = movies[valid_index]
+        valid_ratings = ratings[valid_index]
+
+        model = Embeddings(number_of_users, number_of_movies,
+                       embeddings_size=args.embeddings_size,
+                       dropout_embeddings=args.embeddings_dropout_embeddings,
+                       dropout=args.embeddings_dropout)
+
+        model.fit(train_users, train_movies, train_ratings,
+              valid_users=valid_users, valid_movies=valid_movies,
+              valid_ratings=valid_ratings, epochs=args.embeddings_num_epochs,
+              verbose=args.verbose, decay=args.embeddings_decay,
+              decay_steps=args.embeddings_decay_steps,
+              learning_rate=args.embeddings_learning_rate,
+              batch_size=args.embeddings_batch_size)
+
+        preds = model.predict(valid_users, valid_movies)
+
+        score = root_mean_square_error(valid_ratings, preds)
+        score_lst.append(score)
+
+        print("Fold:", fold+1, "score:", score)
+
+    print('Mean CV RMSE:', np.mean(score_lst))
 
 if __name__ == "__main__":
     parser = create_parser()
     args = parser.parse_args()
     funs = dict(autoencoder=autoencoder, 
                 bsgd=bias_sgd,
-                isvd=iterative_svd)
+                isvd=iterative_svd,
+                embeddins=embeddings)
 
     funs[args.model](args)
