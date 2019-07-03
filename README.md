@@ -1,14 +1,14 @@
 # Collaborative Filtering
 
-This project is part of the Computation Intelligence Lab course (2019) at ETH.
+This project is part of the Computational Intelligence Lab course (2019) at ETH.
 
 Team: 	sasglentame
 
 | Name  | Email |
 | ------------- | ------------- |
+| Sotiris Anagnostidis  | sanagnos@student.ethz.ch  |
 | Adamos Solomou  | solomoua@student.ethz.ch  |
-| Anagnostidis Sotiris  | sanagnos@student.ethz.ch  |
-| Yannis Sach  | saioanni@student.ethz.ch  |
+| Ioannis Sachinoglou  | saioanni@student.ethz.ch  |
 | ----  | sanagnos@student.ethz.ch  |
 
 
