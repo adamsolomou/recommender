@@ -21,10 +21,10 @@ Team: 	sasglentame
         ├── graphs                         # directory for saving graphs
         ├── preprocessed                   # directory for saving .csv
         ├── raw                            # directory for saving outputs
+    ├── report                              
+        ├── report.pdf                     # Final report
     ├── src 
         ├── experiments                    # experiment scripts
-    ├── report                              
-    │   ├── report.pdf                     # Final report
     ├── requirements.txt
     └── README.md
     
