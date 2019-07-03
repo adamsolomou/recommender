@@ -1,0 +1,54 @@
+Sender: LSF System <lsfadmin@lo-s4-009>
+Subject: Job 2305432: <python exp_autoencoder_layers.py> in cluster <leonhard> Done
+
+Job <python exp_autoencoder_layers.py> was submitted from host <lo-login-02> by user <saioanni> in cluster <leonhard> at Tue Jul  2 16:07:55 2019
+Job was executed on host(s) <lo-s4-009>, in queue <gpu.24h>, as user <saioanni> in cluster <leonhard> at Tue Jul  2 16:08:10 2019
+</cluster/home/saioanni> was used as the home directory.
+</cluster/home/saioanni/CIL/recommender/src> was used as the working directory.
+Started at Tue Jul  2 16:08:10 2019
+Terminated at Tue Jul  2 17:42:02 2019
+Results reported at Tue Jul  2 17:42:02 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python exp_autoencoder_layers.py
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   10071.76 sec.
+    Max Memory :                                 978 MB
+    Average Memory :                             871.42 MB
+    Total Requested Memory :                     64192.00 MB
+    Delta Memory :                               63214.00 MB
+    Max Swap :                                   -
+    Max Processes :                              3
+    Max Threads :                                32
+    Run time :                                   5657 sec.
+    Turnaround time :                            5647 sec.
+
+The output (if any) follows:
+
+2019-07-02 16:08:17.197066: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+Using TensorFlow backend.
+Found GPU at: 
+layer: 32 score: 0.9971565497503181
+layer: 16 score: 0.984695996927746
+layer: 15 score: 0.9840246578717762
+layer: 14 score: 0.9835211842487436
+layer: 13 score: 0.9830739513085092
+layer: 12 score: 0.9827018984552988
+layer: 11 score: 0.9832424050490894
+layer: 10 score: 0.985148926968012
+layer: 9 score: 0.9830642270329739
+layer: 8 score: 0.984031205373076
+layer: 7 score: 0.9847075781946535
+layer: 6 score: 0.9855842372753667
+layer: 5 score: 0.9869505072269831
+layer: 4 score: 0.9901243598934717
+layer: 3 score: 0.9909973092880047
+layer: 2 score: 0.9945225249503684
