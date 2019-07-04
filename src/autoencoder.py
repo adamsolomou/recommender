@@ -24,7 +24,7 @@ class Autoencoder:
                  layers=None,
                  dropout=None,
                  regularization=0,
-                 masking=0.3):
+                 masking=0.5):
 
         self.activation = activation
 

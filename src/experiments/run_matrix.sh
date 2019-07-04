@@ -16,10 +16,10 @@ end[2]="0.12"
 end[3]="0.16"
 end[4]="0.2"
 
-cd ..
+cd ../..
 
 for j in 0 1 2 3 4; do
-	python src/svdplus_exp.py --num-iter $num_iters --train-size $train_size --sleep $sleep_time --verbose reg-matrix --start ${begin[$j]} --end ${end[$j]} --point-num $point_num > $dir/matrix_reg_$j.out &
+	python src/experiments/svdplus_exp.py --num-iter $num_iters --train-size $train_size --sleep $sleep_time --verbose reg-matrix --start ${begin[$j]} --end ${end[$j]} --point-num $point_num > $dir/matrix_reg_$j.out &
 	my_pids[$j]=$!
 
 done

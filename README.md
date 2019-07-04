@@ -1,14 +1,14 @@
 # Collaborative Filtering
 
-This project is part of the Computation Intelligence Lab course (2019) at ETH.
+This project is part of the Computational Intelligence Lab course (2019) at ETH.
 
 Team: 	sasglentame
 
 | Name  | Email |
 | ------------- | ------------- |
+| Sotiris Anagnostidis  | sanagnos@student.ethz.ch  |
 | Adamos Solomou  | solomoua@student.ethz.ch  |
-| Anagnostidis Sotiris  | sanagnos@student.ethz.ch  |
-| Yannis Sach  | saioanni@student.ethz.ch  |
+| Ioannis Sachinoglou  | saioanni@student.ethz.ch  |
 | ----  | sanagnos@student.ethz.ch  |
 
 
@@ -17,9 +17,14 @@ Team: 	sasglentame
 
     .
     ├── data                               # should contain files data_train.csv  sampleSubmission.csv
-    ├── src                                                     
+    ├── experiment_results                 # results from experiments
+        ├── graphs                         # directory for saving graphs
+        ├── preprocessed                   # directory for saving .csv
+        ├── raw                            # directory for saving outputs
     ├── report                              
-    │   ├── report.pdf                      # Final report.
+        ├── report.pdf                     # Final report
+    ├── src 
+        ├── experiments                    # experiment scripts
     ├── requirements.txt
     └── README.md
     
@@ -47,31 +52,21 @@ To run on cluster:
   ```
   
 To replicate final submission: 
+```
+python main.py 
+```
 
-TODO
+To replicate experiments:
+```
+cd src/experiments # You should be in the experiment directory for the experiments to run
+python <experiment> 
+```
 
 To run cross-validation test:
+```
+python cross_validation.py --model <model> [--<parameters> <value>]
+```
 
-TODO
+Valid models names are the following: 
 
-TODOS:
- - argpartser on main
- - argparser on cross_validation
- - create table A_train for cross_validation
-# recommender
-Collaborative Filtering for Movie Recommendation 
-
-## To run experiments
-
-
-* `cd` into the `experiment_results` directory.
-* Each `run_*.sh` script runs the corresponding experiment.
-* The difference between `run_grid.sh` and `run_grid2.sh` is that the second breaks the lambda1 parameter into many processes. So run `run_grid2.sh` preferably.
-
-## New project structure
-
-* `experiment_results/` where all the results of the experiments are stored
-* `experiment_results/raw` where cluster outputs are stored
-* `experiment_results/preprocessed` where the csvs are stored
-* `experiment_results/graphs` where the graphs in pdfs are stored
-* `model_results/` where important submissions are stored
+```autoencoder```, ```bsgd``` , ```svd_shrinkage```, ```ncf``` 

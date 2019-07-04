@@ -1,44 +1,45 @@
 import argparse
-
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from utils import root_mean_square_error
-from reader import fetch_data
+
 from sklearn.linear_model import LinearRegression
 
+# Custom dependencies
+from reader import fetch_data
+from utils import root_mean_square_error
 
-# models
+# Models
 from bias_sgd import BiasSGD
-from iterative_svd import IterativeSVD
+from embeddings import Embeddings 
 from autoencoder import Autoencoder
-from embeddings import Embeddings
+from iterative_svd import IterativeSVD 
 
 
 def create_parser():
     parser = argparse.ArgumentParser(description="Run models")
     parser.add_argument("--verbose", "-v", action="store_true", default=False)
 
-    parser.add_argument("--train-size", type=float, default=0.88)
+    parser.add_argument("--train-size", type=float, default=0.9)
 
     parser.add_argument("--shrinkage", type=int, default=38)
     parser.add_argument("--isvd-num-epochs", type=int, default=15)
 
-    parser.add_argument("--hidden-size", type=int, default=12)
+    parser.add_argument("--hidden-size", type=int, default=9)
     parser.add_argument("--regularization_matrix", type=float, default=0.08)
-    parser.add_argument("--regularization_vector", type=float, default=0.04)
+    parser.add_argument("--regularization_vector", type=float, default=0.05)
     parser.add_argument("--sgd-num-epochs", type=int, default=50)
     parser.add_argument("--decay", type=float, default=1.5)
     parser.add_argument("--lr", type=float, default=0.05)
     parser.add_argument("--decay-every", type=int, default=5)
 
     parser.add_argument("--autoenc-regularization", type=float, default=0)
-    parser.add_argument("--autoenc-num-epochs", type=int, default=0)
+    parser.add_argument("--autoenc-num-epochs", type=int, default=200)
     parser.add_argument("--autoenc-masking", type=float, default=0.3)
 
     parser.add_argument("--embeddings-size", type=int, default=96)
-    parser.add_argument("--embeddings-dropout-embeddings", type=float,
-                        default=0.2)
+    parser.add_argument("--embeddings-dropout-embeddings", type=float,default=0.2)
+
     parser.add_argument("--embeddings-dropout", type=float, default=0.1)
     parser.add_argument("--embeddings-decay", type=float, default=0.97)
     parser.add_argument("--embeddings-learning-rate", type=float, default=1.0)
@@ -50,7 +51,6 @@ def create_parser():
                         default="ensemble_predictions.csv")
 
     return parser
-
 
 if __name__ == "__main__":
     parser = create_parser()
@@ -87,14 +87,14 @@ if __name__ == "__main__":
     A_train_average = X_train.fillna(movie_avg_ratings, axis=0).values
     known_train_int = known_train.astype(int)
 
-    # iterative SVD model
+    ###################### Iterative SVD model ######################
     model = IterativeSVD(shrinkage=args.shrinkage)
     model.fit(A_train_average, known_train, A_valid=A_valid, valid_mask=known_validation, verbose=args.verbose, iterations=args.isvd_num_epochs)
 
     preds_iSVD_val = model.predict(valid_users, valid_movies)
     preds_iSVD_test = model.predict(test_users, test_movies)
 
-    # biased SGD model
+    ###################### Bias-SGD model ######################
     model = BiasSGD(number_of_users=10000, number_of_movies=1000,
                     hidden_size=args.hidden_size,
                     regularization_matrix=args.regularization_matrix,
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     preds_bSGD_val = model.predict(valid_users, valid_movies)
     preds_bSGD_test = model.predict(test_users, test_movies)
 
-    # autoencoder model
+    ###################### Autoencoder model ######################
     model = Autoencoder(number_of_users, number_of_movies,
                         regularization=args.autoenc_regularization,
                         masking=args.autoenc_masking)
@@ -122,7 +122,7 @@ if __name__ == "__main__":
     preds_autoencoder_val = model.predict(A_train_zeros, valid_users, valid_movies)
     preds_autoencoder_test = model.predict(A_train_zeros, test_users, test_movies)
 
-    # embeddings model
+    ###################### NCF model ######################
     model = Embeddings(number_of_users, number_of_movies,
                        embeddings_size=args.embeddings_size,
                        dropout_embeddings=args.embeddings_dropout_embeddings,
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     preds_embeddings_val = model.predict(valid_users, valid_movies)
     preds_embeddings_test = model.predict(test_users, test_movies)
 
-    # create regressor for combined predictions
+    ###################### Combine Predictions ######################
     valid_predictions = np.concatenate([preds_iSVD_val, preds_bSGD_val,
                                         preds_autoencoder_val,
                                         preds_autoencoder_val])
@@ -153,6 +153,9 @@ if __name__ == "__main__":
 
     regressor_predictions = regressor.predict(test_predictions)
 
+    # Save results for submission 
+    IDs_and_Predictions = np.hstack((test_IDs[:,np.newaxis], regressor_predictions[:,np.newaxis]))
+
     # persist results
-    preds_pd = pd.DataFrame(index=test_IDs, data=regressor_predictions, columns=['Prediction'])
-    preds_pd.to_csv(args.output_file)
+    preds_pd = pd.DataFrame(data=IDs_and_Predictions, columns=['Id','Prediction'])
+    preds_pd.to_csv(args.output_file, index=False)

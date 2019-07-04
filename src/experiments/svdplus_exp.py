@@ -1,5 +1,6 @@
 import sys
-sys.path.insert(0, '..')
+# sys.path.insert(0, '..')
+sys.path.insert(0, './src')
 
 import time
 import argparse
@@ -10,7 +11,8 @@ from pprint import pprint
 import numpy as np
 import pandas as pd
 
-from svdplus import SVDplus
+# from svdplus import SVDplus
+from bias_sgd import BiasSGD
 from reader import fetch_data
 from utils import root_mean_square_error
 
@@ -18,27 +20,28 @@ N_USERS = 10000
 N_MOVIES = 1000
 N_ITERS = 1000000
 
+#data = fetch_data(train_size=0.88, train_file="../data/data_train.csv",
+#                  test_file="../data/sampleSubmission.csv")
 data = fetch_data(train_size=0.88)
 
 # Training 
-train_users, train_movies, train_ratings, A_train = data['train']
+_, train_users, train_movies, train_ratings, A_train = data['train']
 
 # Validation 
-valid_users, valid_movies, valid_ratings, A_valid = data['valid']
+_, valid_users, valid_movies, valid_ratings, A_valid = data['valid']
 
 
 def predict_with_config(args, hidden_size=12, lr=0.04, reg_matrix=0.08,
                         reg_vector=0.04):
-    predictor = SVDplus(N_USERS, N_MOVIES, hidden_size=hidden_size,
+    predictor = BiasSGD(N_USERS, N_MOVIES, hidden_size=hidden_size,
                         regularization_matrix=reg_matrix,
-                        regularization_vector=reg_vector,
-                        verbose=args.verbose)
-    predictor.fit_data(train_users, train_movies, train_ratings,
-                       users_validation=valid_users,
-                       movies_validation=valid_movies,
-                       ratings_validation=valid_ratings,
-                       num_iters=args.num_iter,
-                       learning_rate=lr)
+                        regularization_vector=reg_vector)
+    predictor.fit(train_users, train_movies, train_ratings,
+                  valid_users=valid_users,
+                  valid_movies=valid_movies,
+                  valid_ratings=valid_ratings,
+                  num_epochs=args.num_iter,
+                  lr=lr)
 
     preds = predictor.predict(valid_users, valid_movies)
     err = root_mean_square_error(valid_ratings, preds)
