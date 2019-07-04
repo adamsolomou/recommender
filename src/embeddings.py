@@ -1,5 +1,4 @@
 import tensorflow as tf
-from tqdm import tqdm
 import numpy as np
 from sklearn.utils import shuffle
 import math
@@ -212,8 +211,8 @@ class Embeddings:
                                                                     ratings_train_placeholder: ratings_shuf
                                                                     })
                     try:
-                        pbar = tqdm(total=len(train_users))
-                        pbar.set_description('[Epoch:{:4d}]'.format(epoch + 1))
+#                         pbar = tqdm(total=len(train_users))
+#                         pbar.set_description('[Epoch:{:4d}]'.format(epoch + 1))
                         while True:
                             error, summary, _, step = sess.run([square_error_train, summaries_merged,
                                                                train_op, global_step])
@@ -221,7 +220,7 @@ class Embeddings:
                             total_square_error_train += error
                             writer.add_summary(summary, step)
 
-                            pbar.update(batch_size)
+#                             pbar.update(batch_size)
 
                     except tf.errors.OutOfRangeError:
                         pass
@@ -245,13 +244,13 @@ class Embeddings:
                             pass
 
                         validation_error = math.sqrt(total_square_error_validation / len(valid_users))
-                        pbar.set_postfix_str("Train RMSE: {:3.4f}; Valid RMSE: {:3.4f}"
-                                             .format(train_error, validation_error))
-
+#                         pbar.set_postfix_str("Train RMSE: {:3.4f}; Valid RMSE: {:3.4f}"
+#                                              .format(train_error, validation_error))
+                        print('Epoch', epoch + 1, 'train rmse', train_error, 'validation rmse', validation_error)
                     else:
-                        pbar.set_postfix_str("Train RMSE: {:3.4f};".format(train_error))
+#                         pbar.set_postfix_str("Train RMSE: {:3.4f};".format(train_error))
 
-                    pbar.close()
+#                     pbar.close()
 
     def predict(self,
                 test_users,
@@ -289,12 +288,12 @@ class Embeddings:
                 total_predictions = list()
 
                 try:
-                    with tqdm(total=len(test_users)) as pbar:
-                        while True:
-                            predictions_batch = sess.run(ratings_predictions)
+#                     with tqdm(total=len(test_users)) as pbar:
+                    while True:
+                        predictions_batch = sess.run(ratings_predictions)
 
-                            total_predictions.append(predictions_batch)
-                            pbar.update(batch_size)
+                        total_predictions.append(predictions_batch)
+#                         pbar.update(batch_size)
 
                 except tf.errors.OutOfRangeError:
                     pass
