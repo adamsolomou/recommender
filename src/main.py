@@ -17,7 +17,7 @@ from embeddings import Embeddings
 
 def create_parser():
     parser = argparse.ArgumentParser(description="Run models")
-    parser.add_argument("--verbose", "-v", action="store_true")
+    parser.add_argument("--verbose", "-v", action="store_true", default=False)
 
     parser.add_argument("--train-size", type=float, default=0.88)
 
