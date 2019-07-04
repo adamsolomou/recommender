@@ -26,4 +26,4 @@ if __name__ == "__main__":
     file = 'raw/autoencoder_exp_layer_size.out'
     layers_regex = 'layer: (\d+) score: (\d+\.\d+)'
     column_names = ['Layer_size', 'score']
-    convert_to_csv(file, layers_regex, column_names, 'preprocessed/autoencoder_exp_layer.csv', dry=True)
+    convert_to_csv(file, layers_regex, column_names, 'preprocessed/autoencoder_exp_layer.csv', dry=False)

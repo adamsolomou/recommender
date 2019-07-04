@@ -32,7 +32,7 @@ def read_file(filename):
 
 
 def autoencoder_graph():
-    data = pd.read_csv('autoencoder_exp_layer.csv')
+    data = pd.read_csv('preprocessed/autoencoder_exp_layer.csv')
     data = data[(data.Layer_size >= 4) & (data.Layer_size <=16)]
 
 
