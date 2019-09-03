@@ -2,6 +2,8 @@
 
 This project is part of the Computational Intelligence Lab course (2019) at ETH.
 
+The project website can be found [here](https://inclass.kaggle.com/c/cil-collab-filtering-2019).
+
 Team: 	sasglentame
 
 | Name  | Email |
@@ -69,4 +71,7 @@ python cross_validation.py --model <model> [--<parameters> <value>]
 
 Valid models names are the following: 
 
-```autoencoder```, ```bsgd``` , ```svd_shrinkage```, ```ncf``` 
+```autoencoder```, ```bsgd``` , ```svd_shrinkage```, ```ncf```
+
+## Documentation
+[Report](https://github.com/adamsolomou/recommender/blob/master/report/report.pdf) 
